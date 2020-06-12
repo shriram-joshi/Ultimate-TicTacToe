@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Ultimate TicTacToe</string>
+
+    <string name="tie_text">Its a Tie!</string>
+    <string name="you_win_string">You won the round!</string>
+    <string name="win_string"> wins the round!</string>
+    <string name="share_this_code_prompt_1">Share this code with your friend\n and don\'t close this window</string>
+    <string name="share_this_code_prompt_2">Create a 4 digit code\n for your game</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/popup_shape"
+    android:backgroundTint="#241CC5">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Play online with a friend"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="10dp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/host_game_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Game"
+            android:textColor="@color/white"
+            android:background="@drawable/border_template"
+            android:backgroundTint="#554EE7"
+            android:layout_marginBottom="10dp"/>
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/join_game_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join Game"
+            android:textColor="@color/white"
+            android:background="@drawable/border_template"
+            android:backgroundTint="#544de6"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
