@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/show_to_friends_help"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/share_this_code_prompt_2"
         android:fontFamily="sans-serif"

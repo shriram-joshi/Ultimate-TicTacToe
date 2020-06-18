@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isLeftGame = false, isStopGame = false;
     private long isWaiting = 0;
 
-    SharedPreferences playerPrefs;
+    SharedPreferences playerPreferences;
     SharedPreferences.Editor editor;
 
     FirebaseFirestore gameSync = FirebaseFirestore.getInstance();
@@ -43,8 +44,23 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        playerPrefs = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
-        editor = playerPrefs.edit();
+        playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
+        editor = playerPreferences.edit();
+
+        switch (playerPreferences.getInt("themePref",0)){
+            case 0:
+                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.black, 0,false);
+                break;
+            case 1:
+                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, 0, false);
+                break;
+            case 2:
+                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, 0, true);
+                break;
+        }
 
         //Initialization after game start
         {
@@ -55,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             localGame.setLastButtonPressed((long)0);
             localGame.setFriendScore(0);
             localGame.setMyScore(0);
-            localGame.setRound(0);
+            localGame.setRound(1);
             binding.roundTv.setText(String.valueOf(localGame.getRound()));
 
             updateGame.put("gameState", localGame.getGameState());
@@ -280,9 +296,44 @@ public class MainActivity extends AppCompatActivity {
                 isLeftGame = true;
                 gameSync.collection("Active Games").document("G" + localGame.getGameID()).delete();
                 editor.putString("gameID", null);
+                editor.apply();
             }
         });
 
+    }
+
+    private void setTheme(int background, int boardBackground, int textColour, int buttonColour,boolean changeOtherColour) {
+        binding.mainActivityBackground.setImageResource(background);
+        binding.boardBackground.setBackgroundResource(boardBackground);
+        binding.b11.setTextColor(getResources().getColor(textColour));
+        binding.b12.setTextColor(getResources().getColor(textColour));
+        binding.b13.setTextColor(getResources().getColor(textColour));
+        binding.b21.setTextColor(getResources().getColor(textColour));
+        binding.b22.setTextColor(getResources().getColor(textColour));
+        binding.b23.setTextColor(getResources().getColor(textColour));
+        binding.b31.setTextColor(getResources().getColor(textColour));
+        binding.b32.setTextColor(getResources().getColor(textColour));
+        binding.b33.setTextColor(getResources().getColor(textColour));
+        if (changeOtherColour){
+            binding.nextRoundBtn.setTextColor(getResources().getColor(textColour));
+            binding.turnText.setTextColor(getResources().getColor(textColour));
+            binding.turnTv.setTextColor(getResources().getColor(textColour));
+            binding.roundText.setTextColor(getResources().getColor(textColour));
+            binding.roundTv.setTextColor(getResources().getColor(textColour));
+            binding.scoreText.setTextColor(getResources().getColor(textColour));
+            binding.youText.setTextColor(getResources().getColor(textColour));
+            binding.opponentsNameTv.setTextColor(getResources().getColor(textColour));
+            binding.myScoreTv.setTextColor(getResources().getColor(textColour));
+            binding.opponentsScoreTv.setTextColor(getResources().getColor(textColour));
+            binding.msg.setTextColor(getResources().getColor(textColour));
+            switch(buttonColour){
+                case 0:
+                default:
+                    binding.leaveGame.setImageResource(R.drawable.ic_leave);
+                case 1:
+                    binding.leaveGame.setImageResource(R.drawable.ic_leave_black);
+            }
+        }
     }
 
     private void updateUI() {

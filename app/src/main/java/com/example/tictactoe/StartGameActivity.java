@@ -1,17 +1,13 @@
 package com.example.tictactoe;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +41,7 @@ public class StartGameActivity extends AppCompatActivity {
     TextView joiningTv;
 
     SharedPreferences playerPreferences;
-    SharedPreferences.Editor saveGameID;
+    SharedPreferences.Editor editor;
 
     FirebaseFirestore createGame = FirebaseFirestore.getInstance();
 
@@ -57,7 +53,22 @@ public class StartGameActivity extends AppCompatActivity {
         setContentView(view);
 
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
-        saveGameID = playerPreferences.edit();
+        editor = playerPreferences.edit();
+
+        switch (playerPreferences.getInt("themePref",0)){
+            case 0:
+                binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden, R.color.black, 1, false);
+                break;
+            case 1:
+                binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, 0,false);
+                break;
+            case 2:
+                binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean, R.color.black, 1,true);
+                break;
+        }
 
         binding.playOnlineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,9 +98,9 @@ public class StartGameActivity extends AppCompatActivity {
                                     {
                                         startGameCodeEt.setEnabled(false);
                                         createHosting.setEnabled(false);
-                                        helpText.setText("Creating...");
 
                                         if (startGameCodeEt.getText().toString().length() == 4) {
+                                            helpText.setText("Creating...");
                                             createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
                                                     .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                 @Override
@@ -128,8 +139,8 @@ public class StartGameActivity extends AppCompatActivity {
                                                                     }
                                                                 });
                                                         helpText.setText(R.string.share_this_code_prompt_1);
-                                                        saveGameID.putString("gameID", startGameCodeEt.getText().toString());
-                                                        saveGameID.apply();
+                                                        editor.putString("gameID", startGameCodeEt.getText().toString());
+                                                        editor.apply();
                                                         createHosting.setEnabled(false);
 
                                                     } else {
@@ -143,7 +154,7 @@ public class StartGameActivity extends AppCompatActivity {
                                         } else {
                                             startGameCodeEt.setEnabled(true);
                                             createHosting.setEnabled(true);
-                                            helpText.setText(R.string.share_this_code_prompt_1);
+                                            helpText.setText(R.string.share_this_code_prompt_2);
                                             Toast.makeText(getApplicationContext(), "Enter a 4 digit code", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -158,7 +169,7 @@ public class StartGameActivity extends AppCompatActivity {
                                     if (!(startGameCodeEt.isEnabled())){
                                         createGame.collection("Active Games")
                                                 .document("G" + startGameCodeEt.getText().toString()).delete();
-                                        saveGameID.putString("gameID", null);
+                                        editor.putString("gameID", null);
                                     }
                                 }
                             });
@@ -244,6 +255,7 @@ public class StartGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartGameActivity.this, SettingsActivity.class));
+                finish();
             }
         });
         
@@ -253,5 +265,31 @@ public class StartGameActivity extends AppCompatActivity {
                 Toast.makeText(StartGameActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setTheme(int background, int boardBackground, int textColour, int buttonColour,boolean changeOtherColour) {
+        binding.startGameActivityBackground.setImageResource(background);
+        binding.boardBackground.setBackgroundResource(boardBackground);
+        binding.t11.setTextColor(getResources().getColor(textColour));
+        binding.t12.setTextColor(getResources().getColor(textColour));
+        binding.t13.setTextColor(getResources().getColor(textColour));
+        binding.t21.setTextColor(getResources().getColor(textColour));
+        binding.t22.setTextColor(getResources().getColor(textColour));
+        binding.t23.setTextColor(getResources().getColor(textColour));
+        binding.t31.setTextColor(getResources().getColor(textColour));
+        binding.t32.setTextColor(getResources().getColor(textColour));
+        binding.t33.setTextColor(getResources().getColor(textColour));
+        if (changeOtherColour){
+            binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
+            binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
+            switch(buttonColour){
+                case 0:
+                default:
+                    binding.settingsBtn.setImageResource(R.drawable.ic_settings);
+                case 1:
+                    binding.settingsBtn.setImageResource(R.drawable.ic_settings_black);
+            }
+
+        }
     }
 }
