@@ -1,7 +1,6 @@
 package com.example.tictactoe;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ public class ThemeItemAdapter extends PagerAdapter {
         item = new ArrayList<>();
         item.add(new ThemeItem(R.drawable.board_background_template_wooden));
         item.add(new ThemeItem(R.drawable.board_background_template_space));
+        item.add(new ThemeItem(R.drawable.board_background_template_ocean));
         this.context = context;
     }
 

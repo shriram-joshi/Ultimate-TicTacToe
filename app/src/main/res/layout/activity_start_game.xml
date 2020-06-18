@@ -6,9 +6,10 @@
     tools:context=".StartGameActivity">
 
     <ImageView
+        android:id="@+id/start_game_activity_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/space_background"
+        android:src="@drawable/wooden_background"
         android:scaleType="centerCrop"/>
 
     <LinearLayout
@@ -22,7 +23,7 @@
             android:layout_width="328dp"
             android:layout_height="328dp"
             android:orientation="vertical"
-            android:background="@drawable/board_background_template_space">
+            android:background="@drawable/board_background_template_wooden">
 
             <Space
                 android:layout_width="match_parent"
@@ -39,12 +40,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t11"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="T"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"/>
 
                 <Space
@@ -52,12 +54,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t12"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="I"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
                     android:layout_weight="1" />
 
@@ -66,12 +69,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t13"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="C"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
                     android:layout_weight="1"/>
 
@@ -96,12 +100,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t21"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="T"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"/>
 
                 <Space
@@ -109,12 +114,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t22"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="A"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
                     android:layout_weight="1" />
 
@@ -123,12 +129,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t23"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="C"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
                     android:layout_weight="1"/>
 
@@ -153,12 +160,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t31"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="T"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"/>
 
                 <Space
@@ -166,12 +174,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t32"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="O"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
                     android:layout_weight="1" />
 
@@ -180,12 +189,13 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/t33"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:gravity="center"
                     android:text="E"
                     android:textSize="56sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
                     android:layout_weight="1"/>
 
@@ -203,7 +213,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="100dp"/>
+            android:layout_height="50dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -243,14 +253,13 @@
         android:orientation="horizontal"
         android:gravity="end">
 
-        <Button
+        <ImageButton
             android:id="@+id/settings_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_settings"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_settings"
+            android:background="@drawable/border_template"/>
 
     </LinearLayout>
-
-
 
 </FrameLayout>
