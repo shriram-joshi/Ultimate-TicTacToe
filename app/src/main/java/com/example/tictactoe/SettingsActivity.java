@@ -6,11 +6,15 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.tictactoe.databinding.ActivitySettingsBinding;
@@ -47,6 +51,22 @@ public class SettingsActivity extends AppCompatActivity {
         binding.playerName.setText(playerPreferences.getString("playerName", "Friend"));
 
         adapter = new ThemeItemAdapter();
+
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int widthPx = displayMetrics.widthPixels;
+//        int itemWidthPx = 328 * (displayMetrics.densityDpi);
+
+        //Viewpager next and previous pages preview setup
+        int padding = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+        binding.viewPager2.setOffscreenPageLimit(1);
+        Log.i("Child Count", String.valueOf(binding.viewPager2.getChildCount()));
+        if (binding.viewPager2.getChildAt(0) instanceof RecyclerView){
+            RecyclerView recyclerView = (RecyclerView)binding.viewPager2.getChildAt(0);
+            recyclerView.setPadding(padding, 0, padding, 0);
+            recyclerView.setClipToPadding(false);
+        }
+        else Log.e("Error", "Child view not recycler view");
 
         binding.viewPager2.setAdapter(adapter);
 
