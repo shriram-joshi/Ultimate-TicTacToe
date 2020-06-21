@@ -1,8 +1,11 @@
 package com.example.tictactoe;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -95,7 +98,13 @@ public class StartGameActivity extends AppCompatActivity {
                             createHosting.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    {
+
+                                    ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                                    boolean isConnected = activeNetwork != null &&
+                                            activeNetwork.isConnectedOrConnecting();
+                                    if (isConnected){
                                         startGameCodeEt.setEnabled(false);
                                         createHosting.setEnabled(false);
 
@@ -157,6 +166,11 @@ public class StartGameActivity extends AppCompatActivity {
                                             helpText.setText(R.string.share_this_code_prompt_2);
                                             Toast.makeText(getApplicationContext(), "Enter a 4 digit code", Toast.LENGTH_SHORT).show();
                                         }
+                                    } else{
+                                        startGameCodeEt.setEnabled(true);
+                                        createHosting.setEnabled(true);
+                                        helpText.setText(R.string.share_this_code_prompt_2);
+                                        Toast.makeText(StartGameActivity.this, "No internet connection!", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -193,51 +207,65 @@ public class StartGameActivity extends AppCompatActivity {
                             joinGame.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    joiningTv.setVisibility(View.VISIBLE);
-                                    joinGameCodeEt.setEnabled(false);
-                                    joinGame.setEnabled(false);
-                                    if (joinGameCodeEt.getText().toString().length() == 4){
-                                        createGame.collection("Active Games").document("G" + joinGameCodeEt.getText().toString())
-                                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                if (documentSnapshot.getData() == null){
-                                                    joinGameCodeEt.setEnabled(true);
-                                                    joinGame.setEnabled(true);
-                                                    joiningTv.setVisibility(View.GONE);
-                                                    Toast.makeText(getApplicationContext(), "Invalid code", Toast.LENGTH_LONG).show();
-                                                } else {
-                                                    if ((long)documentSnapshot.getData().get("gameIsActive") == 2){
-                                                        Toast.makeText(StartGameActivity.this, "The game has already started", Toast.LENGTH_SHORT).show();
+
+                                    ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                                    boolean isConnected = activeNetwork != null &&
+                                            activeNetwork.isConnectedOrConnecting();
+
+                                    if (isConnected){
+                                        joiningTv.setVisibility(View.VISIBLE);
+                                        joinGameCodeEt.setEnabled(false);
+                                        joinGame.setEnabled(false);
+                                        if (joinGameCodeEt.getText().toString().length() == 4){
+                                            createGame.collection("Active Games").document("G" + joinGameCodeEt.getText().toString())
+                                                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    if (documentSnapshot.getData() == null){
                                                         joinGameCodeEt.setEnabled(true);
-                                                        joiningTv.setVisibility(View.GONE);
                                                         joinGame.setEnabled(true);
+                                                        joiningTv.setVisibility(View.GONE);
+                                                        Toast.makeText(getApplicationContext(), "Invalid code", Toast.LENGTH_LONG).show();
                                                     } else {
-                                                        HashMap<String, Object> gameStart = new HashMap<>();
+                                                        if ((long)documentSnapshot.getData().get("gameIsActive") == 2){
+                                                            Toast.makeText(StartGameActivity.this, "The game has already started", Toast.LENGTH_SHORT).show();
+                                                            joinGameCodeEt.setEnabled(true);
+                                                            joiningTv.setVisibility(View.GONE);
+                                                            joinGame.setEnabled(true);
+                                                        } else {
+                                                            HashMap<String, Object> gameStart = new HashMap<>();
 
-                                                        gameStart.put("gameIsActive", 1);
-                                                        gameStart.put("playerFriend", playerPreferences.getString("playerName", "Friend"));
+                                                            gameStart.put("gameIsActive", 1);
+                                                            gameStart.put("playerFriend", playerPreferences.getString("playerName", "Friend"));
 
-                                                        createGame.collection("Active Games").document("G" + joinGameCodeEt.getText().toString())
-                                                                .update(gameStart);
+                                                            createGame.collection("Active Games").document("G" + joinGameCodeEt.getText().toString())
+                                                                    .update(gameStart);
 
-                                                        Intent start = new Intent(StartGameActivity.this, MainActivity.class);
-                                                        start.putExtra("gameID", joinGameCodeEt.getText().toString());
-                                                        start.putExtra("turn", false);
-                                                        start.putExtra("playerName", playerPreferences.getString("playerName", "Friend"));
+                                                            Intent start = new Intent(StartGameActivity.this, MainActivity.class);
+                                                            start.putExtra("gameID", joinGameCodeEt.getText().toString());
+                                                            start.putExtra("turn", false);
+                                                            start.putExtra("playerName", playerPreferences.getString("playerName", "Friend"));
 
-                                                        joinGameDialog.cancel();
-                                                        finish();
-                                                        startActivity(start);
+                                                            joinGameDialog.cancel();
+                                                            finish();
+                                                            startActivity(start);
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        } else {
+                                            joinGameCodeEt.setEnabled(true);
+                                            joinGame.setEnabled(true);
+                                            joiningTv.setVisibility(View.GONE);
+                                            Toast.makeText(getApplicationContext(), "Enter a 4 digit code", Toast.LENGTH_SHORT).show();
+                                        }
                                     } else {
                                         joinGameCodeEt.setEnabled(true);
                                         joinGame.setEnabled(true);
                                         joiningTv.setVisibility(View.GONE);
-                                        Toast.makeText(getApplicationContext(), "Enter a 4 digit code", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(StartGameActivity.this, "No internet connection!", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -247,7 +275,6 @@ public class StartGameActivity extends AppCompatActivity {
                 });
 
                 playWithFriendDialog.show();
-
             }
         });
 

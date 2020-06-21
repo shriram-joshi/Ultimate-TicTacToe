@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             localGame.setLastButtonPressed((long)0);
             localGame.setFriendScore(0);
             localGame.setMyScore(0);
+            localGame.setDraws(0);
             localGame.setRound(1);
             binding.roundTv.setText(String.valueOf(localGame.getRound()));
 
@@ -325,6 +326,8 @@ public class MainActivity extends AppCompatActivity {
             binding.opponentsNameTv.setTextColor(getResources().getColor(textColour));
             binding.myScoreTv.setTextColor(getResources().getColor(textColour));
             binding.opponentsScoreTv.setTextColor(getResources().getColor(textColour));
+            binding.drawsText.setTextColor(getResources().getColor(textColour));
+            binding.drawScoreTv.setTextColor(getResources().getColor(textColour));
             binding.msg.setTextColor(getResources().getColor(textColour));
             switch(buttonColour){
                 case 0:
@@ -424,6 +427,8 @@ public class MainActivity extends AppCompatActivity {
                 binding.nextRoundBtn.setVisibility(View.VISIBLE);
                 binding.nextRoundBtn.setEnabled(true);
                 binding.msg.setText(R.string.tie_text);
+                localGame.setDraws(localGame.getDraws()+1);
+                binding.drawScoreTv.setText(String.valueOf(localGame.getDraws()));
                 localGame.setGameState(localGame.getGameState()+1);
 
                 updateGame.put("lastButtonPressed", id);
@@ -471,6 +476,8 @@ public class MainActivity extends AppCompatActivity {
                 isStopGame = true;
                 binding.nextRoundBtn.setVisibility(View.VISIBLE);
                 binding.nextRoundBtn.setEnabled(true);
+                localGame.setDraws(localGame.getDraws()+1);
+                binding.drawScoreTv.setText(String.valueOf(localGame.getDraws()));
                 binding.msg.setText(R.string.tie_text);
 
                 localGame.setTurn(true);
