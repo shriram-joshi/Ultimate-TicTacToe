@@ -10,7 +10,7 @@ Ultimate TicTacToe is an online two player TicTacToe game for Android.
         3. Once you create a code the app will prompt you to share it with your friend. Share this code with the person you want to play               with and tell them to follow steps 1. and 2. and then click on the 'Join Game' button.
         4. Wait for you friend to enter the code and start playing.
         5. Once your friend enters the code and presses the 'Join' button your game will automatically start.
-    2. 'Join Game' bttuon-
+    2. 'Join Game' button-
         1. On clicking the 'Join Game' button you will be prompted to enter the code that your friend has created.
         2. Enter the code and press the 'Join' button.
         3. On clicking the 'Join' button the game will start.
