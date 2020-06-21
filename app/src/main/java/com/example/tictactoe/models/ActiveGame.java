@@ -2,7 +2,7 @@ package com.example.tictactoe.models;
 
 public class ActiveGame {
 
-    private long gameState, myScore, friendScore, round;
+    private long gameState, myScore, friendScore, draws, round;
     private String gameID, playerName, opponentName;
     private Long lastButtonPressed;
     private boolean turn;
@@ -74,5 +74,13 @@ public class ActiveGame {
 
     public void setRound(long round) {
         this.round = round;
+    }
+
+    public long getDraws() {
+        return draws;
+    }
+
+    public void setDraws(long draws) {
+        this.draws = draws;
     }
 }

@@ -3,15 +3,18 @@ package com.example.tictactoe;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.tictactoe.databinding.ActivitySettingsBinding;
+import com.example.tictactoe.models.ThemeItemAdapter;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
             ,R.drawable.space_background
             ,R.drawable.ocean_background
     };
+    VectorDrawable drawable;
+    GradientDrawable backgroundStroke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +44,27 @@ public class SettingsActivity extends AppCompatActivity {
         editor = playerPreferences.edit();
         Toast.makeText(this, "Swipe for more themes", Toast.LENGTH_LONG).show();
 
-        adapter = new ThemeItemAdapter(this);
+        binding.playerName.setText(playerPreferences.getString("playerName", "Friend"));
 
-        binding.viewPager.setAdapter(adapter);
-//        binding.viewPager.setPadding(40, 0, 40,  0);
-        binding.viewPager.setPageMargin(20);
+        adapter = new ThemeItemAdapter();
 
-        binding.viewPager.setCurrentItem(playerPreferences.getInt("themePref", 0));
+        binding.viewPager2.setAdapter(adapter);
 
-        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        binding.viewPager2.setCurrentItem(playerPreferences.getInt("themePref", 0));
+//        binding.viewPager2.setPadding(40,0,40,0);
+//        binding.viewPager2.setClipToPadding(false);
+
+        binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                binding.setThemeBtn.setVisibility(View.VISIBLE);
-
-                if (binding.viewPager.getCurrentItem() == playerPreferences.getInt("themePref", 0)){
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                if (binding.viewPager2.getCurrentItem() == playerPreferences.getInt("themePref", 0))
                     binding.setThemeBtn.setVisibility(View.GONE);
-                }
+                else
+                    binding.setThemeBtn.setVisibility(View.VISIBLE);
 
-                switch (binding.viewPager.getCurrentItem()){
+                //for background scale type
+                switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 2:
                         binding.settingsActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -67,76 +75,95 @@ public class SettingsActivity extends AppCompatActivity {
                         break;
                 }
 
-                switch (binding.viewPager.getCurrentItem()){
+                //for other UI changes
+                switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 1:
-                        binding.userName.setTextColor(getResources().getColor(R.color.white));
-                        binding.leaveSettingsBtn.setImageResource(R.drawable.ic_arrow_back);
+                        binding.playerName.setTextColor(getResources().getColor(R.color.white));
+                        drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
+                        drawable = (VectorDrawable)binding.setThemeBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
                         if (playerNameEdited){
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
                         }else{
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
                         }
+                        drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
+
+                        backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+                        backgroundStroke = (GradientDrawable)binding.editPlayerNameBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+                        backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+
                         binding.displayNameTil.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.hint_light)));
                         break;
                     case 2:
-                        binding.userName.setTextColor(getResources().getColor(R.color.black));
-                        binding.leaveSettingsBtn.setImageResource(R.drawable.ic_arrow_back_black);
-                        binding.setThemeBtn.setImageResource(R.drawable.ic_check_black);
+                        binding.playerName.setTextColor(getResources().getColor(R.color.black));
+                        drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
+                        binding.setThemeBtn.setImageResource(R.drawable.ic_check);
+                        drawable = (VectorDrawable)binding.setThemeBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
                         if (playerNameEdited){
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_black);
+                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
                         }else{
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create_black);
+                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
                         }
+                        drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
+
+                        backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+                        backgroundStroke = (GradientDrawable)binding.editPlayerNameBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+                        backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+
                         binding.displayNameTil.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.hint_dark)));
                         break;
                 }
 
-                binding.settingsActivityBackground.setImageResource(backgroundResource[binding.viewPager.getCurrentItem()]);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+                binding.settingsActivityBackground.setImageResource(backgroundResource[binding.viewPager2.getCurrentItem()]);
             }
         });
-
-        if (playerPreferences.getString("playerName", null) != null)
-            binding.userName.setText(playerPreferences.getString("playerName", null));
 
         binding.editPlayerNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (playerNameEdited){
-                    if (!(binding.userName.getText().toString().equals(playerPreferences.getString("playerName", null)))) {
-                        editor.putString("playerName", binding.userName.getText().toString());
+                    if (!(binding.playerName.getText().toString().equals(playerPreferences.getString("playerName", "Friend")))) {
+                        editor.putString("playerName", binding.playerName.getText().toString());
                         editor.apply();
                         Toast.makeText(SettingsActivity.this, "Display name saved!", Toast.LENGTH_SHORT).show();
                     }
 
-                    binding.userName.setEnabled(false);
-                    if (binding.viewPager.getCurrentItem() == 0 || binding.viewPager.getCurrentItem() == 1)
-                    {
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
-                    }else if (binding.viewPager.getCurrentItem() == 2){
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create_black);
+                    if (binding.playerName.getText().toString().isEmpty()){
+                        binding.playerName.setText("Friend");
+                        editor.putString("playerName", "Friend");
+                        editor.apply();
                     }
+
+                    binding.playerName.setEnabled(false);
+                    binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
+                    drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+
                     playerNameEdited = false;
                 } else {
-                    binding.userName.setEnabled(true);
-                    if (binding.viewPager.getCurrentItem() == 0 || binding.viewPager.getCurrentItem() == 1)
-                    {
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
-                    }else if (binding.viewPager.getCurrentItem() == 2){
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_black);
-                    }
+                    binding.playerName.setEnabled(true);
+                    binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
+                    drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
                     playerNameEdited = true;
+                }
+                if (binding.viewPager2.getCurrentItem() == 0 || binding.viewPager2.getCurrentItem() == 1)
+                {
+                    drawable.setTint(getResources().getColor(R.color.white));
+                }else if (binding.viewPager2.getCurrentItem() == 2){
+                    drawable.setTint(getResources().getColor(R.color.black));
                 }
             }
         });
@@ -144,7 +171,7 @@ public class SettingsActivity extends AppCompatActivity {
         binding.setThemeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("themePref", binding.viewPager.getCurrentItem());
+                editor.putInt("themePref", binding.viewPager2.getCurrentItem());
                 editor.apply();
                 Toast.makeText(SettingsActivity.this, "Theme has been set!", Toast.LENGTH_LONG).show();
                 binding.setThemeBtn.setVisibility(View.GONE);

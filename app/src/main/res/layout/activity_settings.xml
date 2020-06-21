@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SettingsActivity"
     android:orientation="vertical">
 
@@ -23,13 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"
-            android:background="@drawable/border_template"/>
+            android:background="@drawable/border_template"
+            android:layout_margin="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/display_name_Til"
@@ -40,11 +42,12 @@
                 android:gravity="center_horizontal">
 
                 <EditText
-                    android:id="@+id/user_name"
+                    android:id="@+id/player_name"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="15"
-                    android:enabled="false"/>
+                    android:maxLength="10"
+                    android:enabled="false"
+                    android:maxLines="1"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,22 +60,36 @@
 
         </LinearLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:foregroundGravity="center"
-            android:overScrollMode="never"
-            android:clipToPadding="false"/>
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ImageButton
-            android:id="@+id/set_theme_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_check"
-            android:scaleType="centerCrop"
-            android:background="@drawable/border_template"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp"
+                    android:foregroundGravity="center"
+                    android:overScrollMode="never"
+                    android:clipToPadding="false"/>
+
+                <ImageButton
+                    android:id="@+id/set_theme_btn"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_check"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/border_template"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 

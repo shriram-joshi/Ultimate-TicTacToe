@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/theme_board_image"
             android:layout_width="328dp"
-            android:layout_height="328dp" />
+            android:layout_height="328dp"/>
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>

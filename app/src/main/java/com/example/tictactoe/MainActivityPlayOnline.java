@@ -2,6 +2,8 @@ package com.example.tictactoe;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tictactoe.databinding.ActivityMainBinding;
+import com.example.tictactoe.databinding.ActivityMainPlayOnlineBinding;
 import com.example.tictactoe.models.ActiveGame;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,9 +26,9 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityPlayOnline extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private ActivityMainPlayOnlineBinding binding;
     private ActiveGame localGame = new ActiveGame();
     private boolean isLeftGame = false, isStopGame = false;
     private long isWaiting = 0;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainPlayOnlineBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -49,16 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
-                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
-                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.black, 0,false);
+                binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.white, false);
                 break;
             case 1:
-                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, 0, false);
+                binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, false);
                 break;
             case 2:
-                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, 0, true);
+                binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, true);
                 break;
         }
 
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             localGame.setLastButtonPressed((long)0);
             localGame.setFriendScore(0);
             localGame.setMyScore(0);
+            localGame.setDraws(0);
             localGame.setRound(1);
             binding.roundTv.setText(String.valueOf(localGame.getRound()));
 
@@ -177,10 +180,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     if (!isLeftGame) {
-                        Toast.makeText(MainActivity.this,  localGame.getOpponentName() + " left the game", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivityPlayOnline.this,  localGame.getOpponentName() + " left the game", Toast.LENGTH_LONG).show();
                     }
                     localGame = new ActiveGame();
-                    startActivity(new Intent(MainActivity.this,StartGameActivity.class));
+                    startActivity(new Intent(MainActivityPlayOnline.this,StartGameActivity.class));
                     finish();
                     Log.d("OnEvent", "Current data: null");
                 }
@@ -270,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                                     gameSync.collection("Active Games").document("G" + localGame.getGameID()).update(updateGame);
                                 }
                             }else{
-                                Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivityPlayOnline.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -302,8 +305,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setTheme(int background, int boardBackground, int textColour, int buttonColour,boolean changeOtherColour) {
-        binding.mainActivityBackground.setImageResource(background);
+    private void setTheme(int background, int boardBackground, int textColour, boolean changeOtherColour) {
+        GradientDrawable backgroundStroke;
+
+        binding.mainActivityPoBackground.setImageResource(background);
         binding.boardBackground.setBackgroundResource(boardBackground);
         binding.b11.setTextColor(getResources().getColor(textColour));
         binding.b12.setTextColor(getResources().getColor(textColour));
@@ -314,7 +319,24 @@ public class MainActivity extends AppCompatActivity {
         binding.b31.setTextColor(getResources().getColor(textColour));
         binding.b32.setTextColor(getResources().getColor(textColour));
         binding.b33.setTextColor(getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.turnRoundBackground.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.scoresBackground.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.youText.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.drawsText.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.opponentsNameTv.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.msg.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.nextRoundBtn.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+
         if (changeOtherColour){
+            VectorDrawable drawable;
+
             binding.nextRoundBtn.setTextColor(getResources().getColor(textColour));
             binding.turnText.setTextColor(getResources().getColor(textColour));
             binding.turnTv.setTextColor(getResources().getColor(textColour));
@@ -325,14 +347,11 @@ public class MainActivity extends AppCompatActivity {
             binding.opponentsNameTv.setTextColor(getResources().getColor(textColour));
             binding.myScoreTv.setTextColor(getResources().getColor(textColour));
             binding.opponentsScoreTv.setTextColor(getResources().getColor(textColour));
+            binding.drawsText.setTextColor(getResources().getColor(textColour));
+            binding.drawScoreTv.setTextColor(getResources().getColor(textColour));
             binding.msg.setTextColor(getResources().getColor(textColour));
-            switch(buttonColour){
-                case 0:
-                default:
-                    binding.leaveGame.setImageResource(R.drawable.ic_leave);
-                case 1:
-                    binding.leaveGame.setImageResource(R.drawable.ic_leave_black);
-            }
+            drawable = (VectorDrawable) binding.leaveGame.getDrawable();
+            drawable.setTint(getResources().getColor(textColour));
         }
     }
 
@@ -424,6 +443,8 @@ public class MainActivity extends AppCompatActivity {
                 binding.nextRoundBtn.setVisibility(View.VISIBLE);
                 binding.nextRoundBtn.setEnabled(true);
                 binding.msg.setText(R.string.tie_text);
+                localGame.setDraws(localGame.getDraws()+1);
+                binding.drawScoreTv.setText(String.valueOf(localGame.getDraws()));
                 localGame.setGameState(localGame.getGameState()+1);
 
                 updateGame.put("lastButtonPressed", id);
@@ -471,6 +492,8 @@ public class MainActivity extends AppCompatActivity {
                 isStopGame = true;
                 binding.nextRoundBtn.setVisibility(View.VISIBLE);
                 binding.nextRoundBtn.setEnabled(true);
+                localGame.setDraws(localGame.getDraws()+1);
+                binding.drawScoreTv.setText(String.valueOf(localGame.getDraws()));
                 binding.msg.setText(R.string.tie_text);
 
                 localGame.setTurn(true);
