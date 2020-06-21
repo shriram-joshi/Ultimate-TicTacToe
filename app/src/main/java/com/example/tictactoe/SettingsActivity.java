@@ -3,6 +3,8 @@ package com.example.tictactoe;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
             ,R.drawable.space_background
             ,R.drawable.ocean_background
     };
+    VectorDrawable drawable;
+    GradientDrawable backgroundStroke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class SettingsActivity extends AppCompatActivity {
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
         editor = playerPreferences.edit();
         Toast.makeText(this, "Swipe for more themes", Toast.LENGTH_LONG).show();
+
+        binding.playerName.setText(playerPreferences.getString("playerName", "Friend"));
 
         adapter = new ThemeItemAdapter();
 
@@ -57,6 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
                 else
                     binding.setThemeBtn.setVisibility(View.VISIBLE);
 
+                //for background scale type
                 switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 2:
@@ -68,28 +75,55 @@ public class SettingsActivity extends AppCompatActivity {
                         break;
                 }
 
+                //for other UI changes
                 switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 1:
-                        binding.userName.setTextColor(getResources().getColor(R.color.white));
-                        binding.leaveSettingsBtn.setImageResource(R.drawable.ic_arrow_back);
+                        binding.playerName.setTextColor(getResources().getColor(R.color.white));
+                        drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
+                        drawable = (VectorDrawable)binding.setThemeBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
                         if (playerNameEdited){
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
                         }else{
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
                         }
+                        drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
+
+                        backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+                        backgroundStroke = (GradientDrawable)binding.editPlayerNameBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+                        backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+
                         binding.displayNameTil.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.hint_light)));
                         break;
                     case 2:
-                        binding.userName.setTextColor(getResources().getColor(R.color.black));
-                        binding.leaveSettingsBtn.setImageResource(R.drawable.ic_arrow_back_black);
-                        binding.setThemeBtn.setImageResource(R.drawable.ic_check_black);
+                        binding.playerName.setTextColor(getResources().getColor(R.color.black));
+                        drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
+                        binding.setThemeBtn.setImageResource(R.drawable.ic_check);
+                        drawable = (VectorDrawable)binding.setThemeBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
                         if (playerNameEdited){
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_black);
+                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
                         }else{
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create_black);
+                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
                         }
+                        drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
+
+                        backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+                        backgroundStroke = (GradientDrawable)binding.editPlayerNameBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+                        backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+
                         binding.displayNameTil.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.hint_dark)));
                         break;
                 }
@@ -98,39 +132,38 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-        if (playerPreferences.getString("playerName", "Friend") != "Friend")
-            binding.userName.setText(playerPreferences.getString("playerName", "Friend"));
-
         binding.editPlayerNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (playerNameEdited){
-                    if (!(binding.userName.getText().toString().equals(playerPreferences.getString("playerName", null)))) {
-                        editor.putString("playerName", binding.userName.getText().toString());
+                    if (!(binding.playerName.getText().toString().equals(playerPreferences.getString("playerName", "Friend")))) {
+                        editor.putString("playerName", binding.playerName.getText().toString());
                         editor.apply();
                         Toast.makeText(SettingsActivity.this, "Display name saved!", Toast.LENGTH_SHORT).show();
                     }
 
-                    binding.userName.setEnabled(false);
-                    if (binding.viewPager2.getCurrentItem() == 0 || binding.viewPager2.getCurrentItem() == 1)
-                    {
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
-                    }else if (binding.viewPager2.getCurrentItem() == 2){
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create_black);
+                    if (binding.playerName.getText().toString().isEmpty()){
+                        binding.playerName.setText("Friend");
+                        editor.putString("playerName", "Friend");
+                        editor.apply();
                     }
+
+                    binding.playerName.setEnabled(false);
+                    binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
+                    drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+
                     playerNameEdited = false;
                 } else {
-                    binding.userName.setEnabled(true);
-                    if (binding.viewPager2.getCurrentItem() == 0 || binding.viewPager2.getCurrentItem() == 1)
-                    {
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
-                    }else if (binding.viewPager2.getCurrentItem() == 2){
-                        binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_black);
-                    }
+                    binding.playerName.setEnabled(true);
+                    binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
+                    drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
                     playerNameEdited = true;
+                }
+                if (binding.viewPager2.getCurrentItem() == 0 || binding.viewPager2.getCurrentItem() == 1)
+                {
+                    drawable.setTint(getResources().getColor(R.color.white));
+                }else if (binding.viewPager2.getCurrentItem() == 2){
+                    drawable.setTint(getResources().getColor(R.color.black));
                 }
             }
         });

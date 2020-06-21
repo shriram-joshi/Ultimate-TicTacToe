@@ -61,15 +61,15 @@ public class StartGameActivity extends AppCompatActivity {
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
                 binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
-                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden, R.color.black, 1, false);
+                setTheme(R.drawable.wooden_background,R.drawable.background_with_text_wooden, R.color.black, 1, false);
                 break;
             case 1:
                 binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, 0,false);
+                setTheme(R.drawable.space_background,R.drawable.background_with_text_space, R.color.white, 0,false);
                 break;
             case 2:
                 binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean, R.color.black, 1,true);
+                setTheme(R.drawable.ocean_background,R.drawable.background_with_text_ocean, R.color.black, 1,true);
                 break;
         }
 
@@ -296,16 +296,8 @@ public class StartGameActivity extends AppCompatActivity {
 
     private void setTheme(int background, int boardBackground, int textColour, int buttonColour,boolean changeOtherColour) {
         binding.startGameActivityBackground.setImageResource(background);
-        binding.boardBackground.setBackgroundResource(boardBackground);
-        binding.t11.setTextColor(getResources().getColor(textColour));
-        binding.t12.setTextColor(getResources().getColor(textColour));
-        binding.t13.setTextColor(getResources().getColor(textColour));
-        binding.t21.setTextColor(getResources().getColor(textColour));
-        binding.t22.setTextColor(getResources().getColor(textColour));
-        binding.t23.setTextColor(getResources().getColor(textColour));
-        binding.t31.setTextColor(getResources().getColor(textColour));
-        binding.t32.setTextColor(getResources().getColor(textColour));
-        binding.t33.setTextColor(getResources().getColor(textColour));
+        binding.boardBackground.setImageResource(boardBackground);
+
         if (changeOtherColour){
             binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
             binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));

@@ -45,11 +45,12 @@
                     android:gravity="center_horizontal">
 
                     <LinearLayout
+                        android:id="@+id/turn_round_background"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="4"
-                        android:layout_margin="10dp"
+                        android:layout_margin="5dp"
                         android:background="@drawable/border_template">
 
                         <TextView
@@ -84,7 +85,7 @@
                             android:id="@+id/round_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
+                            android:textSize="20sp"
                             android:textColor="@color/white"
                             android:layout_weight="2"/>
 
@@ -101,6 +102,7 @@
                         android:layout_marginHorizontal="15dp"/>
 
                     <LinearLayout
+                        android:id="@+id/scores_background"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -203,18 +205,12 @@
                         android:orientation="vertical"
                         android:background="@drawable/board_background_template_wooden">
 
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"/>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="96dp"
-                            android:orientation="horizontal">
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="10dp">
 
                             <Button
                                 android:layout_width="96dp"
@@ -224,10 +220,6 @@
                                 android:background="@color/fill_null"
                                 android:id="@+id/b11" />
 
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-
                             <Button
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
@@ -235,11 +227,8 @@
                                 android:textColor="@color/black"
                                 android:id="@+id/b12"
                                 android:background="@color/fill_null"
-                                android:layout_weight="1" />
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"/>
 
                             <Button
                                 android:layout_width="96dp"
@@ -248,26 +237,17 @@
                                 android:textColor="@color/black"
                                 android:id="@+id/b13"
                                 android:background="@color/fill_null"
-                                android:layout_weight="1"/>
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"/>
 
                         </LinearLayout>
-
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="96dp"
-                            android:orientation="horizontal">
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="10dp">
 
                             <Button
                                 android:layout_width="96dp"
@@ -277,10 +257,6 @@
                                 android:background="@color/fill_null"
                                 android:id="@+id/b21" />
 
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-
                             <Button
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
@@ -288,11 +264,8 @@
                                 android:textColor="@color/black"
                                 android:id="@+id/b22"
                                 android:background="@color/fill_null"
-                                android:layout_weight="1" />
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"/>
 
                             <Button
                                 android:layout_width="96dp"
@@ -301,26 +274,16 @@
                                 android:textColor="@color/black"
                                 android:id="@+id/b23"
                                 android:background="@color/fill_null"
-                                android:layout_weight="1"/>
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"/>
 
                         </LinearLayout>
-
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="96dp"
-                            android:orientation="horizontal">
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                            android:orientation="horizontal"
+                            android:layout_margin="10dp">
 
                             <Button
                                 android:layout_width="96dp"
@@ -330,10 +293,6 @@
                                 android:background="@color/fill_null"
                                 android:id="@+id/b31" />
 
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-
                             <Button
                                 android:layout_width="96dp"
                                 android:layout_height="96dp"
@@ -341,11 +300,8 @@
                                 android:textColor="@color/black"
                                 android:id="@+id/b32"
                                 android:background="@color/fill_null"
-                                android:layout_weight="1" />
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"/>
 
                             <Button
                                 android:layout_width="96dp"
@@ -354,17 +310,10 @@
                                 android:textColor="@color/black"
                                 android:id="@+id/b33"
                                 android:background="@color/fill_null"
-                                android:layout_weight="1"/>
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                                android:layout_weight="1"
+                                android:layout_marginStart="10dp"/>
 
                         </LinearLayout>
-
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"/>
 
                     </LinearLayout>
 
@@ -379,9 +328,10 @@
                         android:id="@+id/msg"
                         android:background="@drawable/border_template"
                         android:layout_marginHorizontal="10dp"
-                        android:layout_marginTop="5dp"/>
+                        android:layout_marginTop="10dp"/>
 
                     <Button
+                        android:id="@+id/next_round_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -389,8 +339,8 @@
                         android:text="Next Round"
                         android:textColor="@color/white"
                         android:background="@drawable/border_template"
-                        android:id="@+id/next_round_btn"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:layout_margin="5dp"/>
 
                 </LinearLayout>
 

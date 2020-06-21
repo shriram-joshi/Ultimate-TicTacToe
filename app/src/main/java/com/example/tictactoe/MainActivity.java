@@ -2,6 +2,8 @@ package com.example.tictactoe;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,15 +52,15 @@ public class MainActivity extends AppCompatActivity {
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
                 binding.mainActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
-                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.black, 0,false);
+                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.white, false);
                 break;
             case 1:
                 binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, 0, false);
+                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, false);
                 break;
             case 2:
                 binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, 0, true);
+                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, true);
                 break;
         }
 
@@ -303,7 +305,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setTheme(int background, int boardBackground, int textColour, int buttonColour,boolean changeOtherColour) {
+    private void setTheme(int background, int boardBackground, int textColour, boolean changeOtherColour) {
+        GradientDrawable backgroundStroke;
+
         binding.mainActivityBackground.setImageResource(background);
         binding.boardBackground.setBackgroundResource(boardBackground);
         binding.b11.setTextColor(getResources().getColor(textColour));
@@ -315,7 +319,24 @@ public class MainActivity extends AppCompatActivity {
         binding.b31.setTextColor(getResources().getColor(textColour));
         binding.b32.setTextColor(getResources().getColor(textColour));
         binding.b33.setTextColor(getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.turnRoundBackground.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.scoresBackground.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.youText.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.drawsText.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.opponentsNameTv.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.msg.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.nextRoundBtn.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+
         if (changeOtherColour){
+            VectorDrawable drawable;
+
             binding.nextRoundBtn.setTextColor(getResources().getColor(textColour));
             binding.turnText.setTextColor(getResources().getColor(textColour));
             binding.turnTv.setTextColor(getResources().getColor(textColour));
@@ -329,13 +350,8 @@ public class MainActivity extends AppCompatActivity {
             binding.drawsText.setTextColor(getResources().getColor(textColour));
             binding.drawScoreTv.setTextColor(getResources().getColor(textColour));
             binding.msg.setTextColor(getResources().getColor(textColour));
-            switch(buttonColour){
-                case 0:
-                default:
-                    binding.leaveGame.setImageResource(R.drawable.ic_leave);
-                case 1:
-                    binding.leaveGame.setImageResource(R.drawable.ic_leave_black);
-            }
+            drawable = (VectorDrawable) binding.leaveGame.getDrawable();
+            drawable.setTint(getResources().getColor(textColour));
         }
     }
 
