@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tictactoe.databinding.ActivityMainBinding;
+import com.example.tictactoe.databinding.ActivityMainPlayOnlineBinding;
 import com.example.tictactoe.models.ActiveGame;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,9 +26,9 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityPlayOnline extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private ActivityMainPlayOnlineBinding binding;
     private ActiveGame localGame = new ActiveGame();
     private boolean isLeftGame = false, isStopGame = false;
     private long isWaiting = 0;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainPlayOnlineBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
-                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.FIT_XY);
                 setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.white, false);
                 break;
             case 1:
-                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, false);
                 break;
             case 2:
-                binding.mainActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, true);
                 break;
         }
@@ -180,10 +180,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     if (!isLeftGame) {
-                        Toast.makeText(MainActivity.this,  localGame.getOpponentName() + " left the game", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivityPlayOnline.this,  localGame.getOpponentName() + " left the game", Toast.LENGTH_LONG).show();
                     }
                     localGame = new ActiveGame();
-                    startActivity(new Intent(MainActivity.this,StartGameActivity.class));
+                    startActivity(new Intent(MainActivityPlayOnline.this,StartGameActivity.class));
                     finish();
                     Log.d("OnEvent", "Current data: null");
                 }
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                                     gameSync.collection("Active Games").document("G" + localGame.getGameID()).update(updateGame);
                                 }
                             }else{
-                                Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivityPlayOnline.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
     private void setTheme(int background, int boardBackground, int textColour, boolean changeOtherColour) {
         GradientDrawable backgroundStroke;
 
-        binding.mainActivityBackground.setImageResource(background);
+        binding.mainActivityPoBackground.setImageResource(background);
         binding.boardBackground.setBackgroundResource(boardBackground);
         binding.b11.setTextColor(getResources().getColor(textColour));
         binding.b12.setTextColor(getResources().getColor(textColour));

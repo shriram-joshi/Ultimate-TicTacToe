@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.VectorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class StartGameActivity extends AppCompatActivity {
 
     SharedPreferences playerPreferences;
     SharedPreferences.Editor editor;
+
+    VectorDrawable drawable;
 
     FirebaseFirestore createGame = FirebaseFirestore.getInstance();
 
@@ -132,7 +135,7 @@ public class StartGameActivity extends AppCompatActivity {
                                                                             if (documentSnapshot.getData() != null) {
                                                                                 if ((long) documentSnapshot.getData().get("gameIsActive") == 1) {
 
-                                                                                    Intent start = new Intent(StartGameActivity.this, MainActivity.class);
+                                                                                    Intent start = new Intent(StartGameActivity.this, MainActivityPlayOnline.class);
                                                                                     start.putExtra("gameID", startGameCodeEt.getText().toString());
                                                                                     start.putExtra("turn", true);
                                                                                     start.putExtra("playerName", playerPreferences.getString("playerName", "Host"));
@@ -243,7 +246,7 @@ public class StartGameActivity extends AppCompatActivity {
                                                             createGame.collection("Active Games").document("G" + joinGameCodeEt.getText().toString())
                                                                     .update(gameStart);
 
-                                                            Intent start = new Intent(StartGameActivity.this, MainActivity.class);
+                                                            Intent start = new Intent(StartGameActivity.this, MainActivityPlayOnline.class);
                                                             start.putExtra("gameID", joinGameCodeEt.getText().toString());
                                                             start.putExtra("turn", false);
                                                             start.putExtra("playerName", playerPreferences.getString("playerName", "Friend"));
@@ -289,7 +292,8 @@ public class StartGameActivity extends AppCompatActivity {
         binding.passAndPlayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartGameActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(StartGameActivity.this, MainActivityPassAndPlay.class));
+                finish();
             }
         });
     }
@@ -301,12 +305,14 @@ public class StartGameActivity extends AppCompatActivity {
         if (changeOtherColour){
             binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
             binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
+            binding.settingsBtn.setImageResource(R.drawable.ic_settings);
+            drawable = (VectorDrawable)binding.settingsBtn.getDrawable();
             switch(buttonColour){
                 case 0:
                 default:
-                    binding.settingsBtn.setImageResource(R.drawable.ic_settings);
+                    drawable.setTint(getResources().getColor(R.color.white));
                 case 1:
-                    binding.settingsBtn.setImageResource(R.drawable.ic_settings_black);
+                    drawable.setTint(getResources().getColor(R.color.black));
             }
 
         }
