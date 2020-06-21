@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_leave"
-                android:background="@drawable/border_template"
+                android:background="@android:color/transparent"
                 android:layout_gravity="end"/>
 
             <LinearLayout
