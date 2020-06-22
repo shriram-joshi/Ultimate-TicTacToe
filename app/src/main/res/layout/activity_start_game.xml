@@ -12,6 +12,17 @@
         android:src="@drawable/wooden_background"
         android:scaleType="centerCrop"/>
 
+    <TextView
+        android:id="@+id/copyright_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="© Shriram Joshi"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="5dp"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

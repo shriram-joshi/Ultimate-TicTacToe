@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@drawable/popup_shape"
-    android:backgroundTint="#544de6">
+    android:backgroundTint="@color/hint_light">
 
     <Space
         android:layout_width="match_parent"
@@ -19,15 +19,11 @@
         android:textSize="24sp"
         android:hint="Code"
         android:fontFamily="@font/cambay"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
+        android:textColorHint="@color/hint_dark"
+        android:textColor="@color/black"
         android:inputType="number"
         android:maxLength="4"
         android:layout_marginHorizontal="10sp"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
 
     <TextView
         android:id="@+id/show_to_friends_help"
@@ -36,19 +32,16 @@
         android:text="@string/share_this_code_prompt_2"
         android:fontFamily="sans-serif"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="10dp"
+        android:textColor="@color/black"
+        android:layout_margin="5dp"
         />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="10dp">
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="5dp">
 
         <Button
             android:id="@+id/create_hosting"
@@ -58,11 +51,8 @@
             android:textColor="@color/white"
             android:fontFamily="sans-serif"
             android:background="@drawable/border_template"
-            android:backgroundTint="#5450A0"/>
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="match_parent"/>
+            android:backgroundTint="@color/hint_dark"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/cancel_hosting"
@@ -72,12 +62,9 @@
             android:textColor="@color/white"
             android:fontFamily="sans-serif"
             android:background="@drawable/border_template"
-            android:backgroundTint="#5450A0"/>
+            android:backgroundTint="@color/hint_dark"
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
 
 </LinearLayout>

@@ -52,15 +52,15 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
                 binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.FIT_XY);
-                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.white, false);
+                setTheme(R.drawable.wooden_background,R.drawable.board_background_template_wooden,R.color.black, R.color.white);
                 break;
             case 1:
                 binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, false);
+                setTheme(R.drawable.space_background,R.drawable.board_background_template_space, R.color.white, R.color.white);
                 break;
             case 2:
                 binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, true);
+                setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, R.color.black);
                 break;
         }
 
@@ -75,7 +75,6 @@ public class MainActivityPlayOnline extends AppCompatActivity {
             localGame.setMyScore(0);
             localGame.setDraws(0);
             localGame.setRound(1);
-            binding.roundTv.setText(String.valueOf(localGame.getRound()));
 
             updateGame.put("gameState", localGame.getGameState());
             updateGame.put("lastButtonPressed", localGame.getLastButtonPressed());
@@ -86,6 +85,8 @@ public class MainActivityPlayOnline extends AppCompatActivity {
             if (localGame.isTurn()){
                 binding.turnTv.setText("You");
                 localGame.setGameState(1);
+
+                binding.msg.setText("You play as X");
 
                 updateGame.put("turn", localGame.getPlayerName());
                 gameSync.collection("Active Games").document("G" + localGame.getGameID()).get()
@@ -104,6 +105,8 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                         localGame.setOpponentName("" + documentSnapshot.getData().get("playerHost"));
                         binding.turnTv.setText(localGame.getOpponentName());
                         binding.opponentsNameTv.setText(localGame.getOpponentName());
+
+                        binding.msg.setText("You play as O");
                     }
                 });
             }
@@ -139,7 +142,6 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                                 binding.b31.setText("");
                                 binding.b32.setText("");
                                 binding.b33.setText("");
-                                binding.msg.setText("");
                                 binding.b11.setEnabled(true);
                                 binding.b12.setEnabled(true);
                                 binding.b13.setEnabled(true);
@@ -163,10 +165,12 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                                 if (localGame.isTurn()){
                                     binding.turnTv.setText("You");
                                     localGame.setGameState(1);
+                                    binding.msg.setText("You play as X");
 
                                     updateGame.put("turn", localGame.getPlayerName());
                                 } else {
                                     binding.turnTv.setText(localGame.getOpponentName());
+                                    binding.msg.setText("You play as O");
                                 }
 
                                 gameSync.collection("Active Games").document("G" + localGame.getGameID()).update(updateGame);
@@ -287,7 +291,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                                 gameSync.collection("Active Games").document("G" + localGame.getGameID()).update(updateGame);
                             }
                         }
-                    },15000);
+                    },10000);
 
                 }
             }
@@ -305,54 +309,49 @@ public class MainActivityPlayOnline extends AppCompatActivity {
 
     }
 
-    private void setTheme(int background, int boardBackground, int textColour, boolean changeOtherColour) {
+    private void setTheme(int background, int boardBackground, int boardTextColour, int otherTextColour) {
         GradientDrawable backgroundStroke;
+        VectorDrawable drawable;
 
         binding.mainActivityPoBackground.setImageResource(background);
         binding.boardBackground.setBackgroundResource(boardBackground);
-        binding.b11.setTextColor(getResources().getColor(textColour));
-        binding.b12.setTextColor(getResources().getColor(textColour));
-        binding.b13.setTextColor(getResources().getColor(textColour));
-        binding.b21.setTextColor(getResources().getColor(textColour));
-        binding.b22.setTextColor(getResources().getColor(textColour));
-        binding.b23.setTextColor(getResources().getColor(textColour));
-        binding.b31.setTextColor(getResources().getColor(textColour));
-        binding.b32.setTextColor(getResources().getColor(textColour));
-        binding.b33.setTextColor(getResources().getColor(textColour));
+
+        binding.b11.setTextColor(getResources().getColor(boardTextColour));
+        binding.b12.setTextColor(getResources().getColor(boardTextColour));
+        binding.b13.setTextColor(getResources().getColor(boardTextColour));
+        binding.b21.setTextColor(getResources().getColor(boardTextColour));
+        binding.b22.setTextColor(getResources().getColor(boardTextColour));
+        binding.b23.setTextColor(getResources().getColor(boardTextColour));
+        binding.b31.setTextColor(getResources().getColor(boardTextColour));
+        binding.b32.setTextColor(getResources().getColor(boardTextColour));
+        binding.b33.setTextColor(getResources().getColor(boardTextColour));
+
+        binding.nextRoundBtn.setTextColor(getResources().getColor(otherTextColour));
+        binding.turnText.setTextColor(getResources().getColor(otherTextColour));
+        binding.turnTv.setTextColor(getResources().getColor(otherTextColour));
+        binding.roundText.setTextColor(getResources().getColor(otherTextColour));
+        binding.roundTv.setTextColor(getResources().getColor(otherTextColour));
+        binding.scoreText.setTextColor(getResources().getColor(otherTextColour));
+        binding.youText.setTextColor(getResources().getColor(otherTextColour));
+        binding.opponentsNameTv.setTextColor(getResources().getColor(otherTextColour));
+        binding.myScoreTv.setTextColor(getResources().getColor(otherTextColour));
+        binding.opponentsScoreTv.setTextColor(getResources().getColor(otherTextColour));
+        binding.drawsText.setTextColor(getResources().getColor(otherTextColour));
+        binding.drawScoreTv.setTextColor(getResources().getColor(otherTextColour));
+        binding.msg.setTextColor(getResources().getColor(otherTextColour));
+
         backgroundStroke = (GradientDrawable)binding.turnRoundBackground.getBackground();
-        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
         backgroundStroke = (GradientDrawable)binding.scoresBackground.getBackground();
-        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
         backgroundStroke = (GradientDrawable)binding.youText.getBackground();
-        backgroundStroke.setStroke(2, getResources().getColor(textColour));
-        backgroundStroke = (GradientDrawable)binding.drawsText.getBackground();
-        backgroundStroke.setStroke(2, getResources().getColor(textColour));
-        backgroundStroke = (GradientDrawable)binding.opponentsNameTv.getBackground();
-        backgroundStroke.setStroke(2, getResources().getColor(textColour));
         backgroundStroke = (GradientDrawable)binding.msg.getBackground();
-        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
         backgroundStroke = (GradientDrawable)binding.nextRoundBtn.getBackground();
-        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
 
-        if (changeOtherColour){
-            VectorDrawable drawable;
-
-            binding.nextRoundBtn.setTextColor(getResources().getColor(textColour));
-            binding.turnText.setTextColor(getResources().getColor(textColour));
-            binding.turnTv.setTextColor(getResources().getColor(textColour));
-            binding.roundText.setTextColor(getResources().getColor(textColour));
-            binding.roundTv.setTextColor(getResources().getColor(textColour));
-            binding.scoreText.setTextColor(getResources().getColor(textColour));
-            binding.youText.setTextColor(getResources().getColor(textColour));
-            binding.opponentsNameTv.setTextColor(getResources().getColor(textColour));
-            binding.myScoreTv.setTextColor(getResources().getColor(textColour));
-            binding.opponentsScoreTv.setTextColor(getResources().getColor(textColour));
-            binding.drawsText.setTextColor(getResources().getColor(textColour));
-            binding.drawScoreTv.setTextColor(getResources().getColor(textColour));
-            binding.msg.setTextColor(getResources().getColor(textColour));
-            drawable = (VectorDrawable) binding.leaveGame.getDrawable();
-            drawable.setTint(getResources().getColor(textColour));
-        }
+        drawable = (VectorDrawable) binding.leaveGame.getDrawable();
+        drawable.setTint(getResources().getColor(otherTextColour));
     }
 
     private void updateUI() {

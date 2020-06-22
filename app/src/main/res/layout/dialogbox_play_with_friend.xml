@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/popup_shape"
-    android:backgroundTint="#241CC5">
+    android:backgroundTint="@color/hint_light">
 
     <Space
         android:layout_width="match_parent"
@@ -14,16 +14,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
         android:text="Play online with a friend"
-        android:textColor="@color/white"
+        android:textColor="@color/hint_dark"
         android:fontFamily="sans-serif-light"
         android:textSize="20sp"
-        android:layout_marginHorizontal="10dp"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_margin="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,12 +33,8 @@
             android:text="Start Game"
             android:textColor="@color/white"
             android:background="@drawable/border_template"
-            android:backgroundTint="#554EE7"
-            android:layout_marginBottom="10dp"/>
-
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="match_parent"/>
+            android:backgroundTint="@color/hint_dark"
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/join_game_btn"
@@ -52,8 +43,8 @@
             android:text="Join Game"
             android:textColor="@color/white"
             android:background="@drawable/border_template"
-            android:backgroundTint="#544de6"
-            android:layout_marginBottom="10dp"/>
+            android:backgroundTint="@color/hint_dark"
+            android:layout_margin="10dp"/>
     </LinearLayout>
 
 
