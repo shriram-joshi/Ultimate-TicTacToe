@@ -306,6 +306,7 @@ public class StartGameActivity extends AppCompatActivity {
 
         binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
         binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
+        binding.copyrightText.setTextColor(getResources().getColor(textColour));
         binding.settingsBtn.setImageResource(R.drawable.ic_settings);
         drawable = (VectorDrawable) binding.settingsBtn.getDrawable();
         drawable.setTint(getResources().getColor(textColour));
