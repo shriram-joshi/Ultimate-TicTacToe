@@ -6,23 +6,20 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@drawable/popup_shape"
-    android:backgroundTint="#544de6">
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+    android:backgroundTint="@color/hint_light">
 
     <EditText
         android:id="@+id/join_game_code_et"
         android:layout_width="196sp"
         android:layout_height="wrap_content"
         android:hint="Enter 4 digit code"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
+        android:textColorHint="@color/hint_dark"
+        android:textColor="@color/black"
         android:fontFamily="@font/cambay"
         android:inputType="number"
         android:maxLength="4"
-        android:layout_marginHorizontal="10sp"/>
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"/>
 
     <TextView
         android:id="@+id/joining_tv"
@@ -30,12 +27,10 @@
         android:layout_height="match_parent"
         android:text="Joining..."
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:visibility="gone"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"/>
 
     <Button
         android:id="@+id/join_game"
@@ -45,10 +40,7 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif"
         android:background="@drawable/border_template"
-        android:backgroundTint="#5450A0"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:backgroundTint="@color/hint_dark"
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

@@ -2,11 +2,9 @@ package com.example.tictactoe;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -52,12 +50,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         adapter = new ThemeItemAdapter();
 
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int widthPx = displayMetrics.widthPixels;
-//        int itemWidthPx = 328 * (displayMetrics.densityDpi);
-
-        //Viewpager next and previous pages preview setup
         int padding = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
         binding.viewPager2.setOffscreenPageLimit(1);
         Log.i("Child Count", String.valueOf(binding.viewPager2.getChildCount()));
@@ -71,8 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
         binding.viewPager2.setAdapter(adapter);
 
         binding.viewPager2.setCurrentItem(playerPreferences.getInt("themePref", 0));
-//        binding.viewPager2.setPadding(40,0,40,0);
-//        binding.viewPager2.setClipToPadding(false);
 
         binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -95,16 +85,21 @@ public class SettingsActivity extends AppCompatActivity {
                         break;
                 }
 
-                //for other UI changes
+                //for button and textView UI changes
                 switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 1:
+                        binding.displayNameText.setTextColor(getResources().getColor(R.color.hint_light));
                         binding.playerName.setTextColor(getResources().getColor(R.color.white));
+                        binding.settingsText.setTextColor(getResources().getColor(R.color.white));
+                        binding.themeText.setTextColor(getResources().getColor(R.color.white));
+
                         drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
                         drawable = (VectorDrawable)binding.setThemeBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
+
                         if (playerNameEdited){
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
                         }else{
@@ -119,11 +114,16 @@ public class SettingsActivity extends AppCompatActivity {
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
                         backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+                        backgroundStroke = (GradientDrawable)binding.displayNameLinearLayout.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
 
-                        binding.displayNameTil.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.hint_light)));
                         break;
                     case 2:
+                        binding.displayNameText.setTextColor(getResources().getColor(R.color.hint_dark));
                         binding.playerName.setTextColor(getResources().getColor(R.color.black));
+                        binding.settingsText.setTextColor(getResources().getColor(R.color.black));
+                        binding.themeText.setTextColor(getResources().getColor(R.color.black));
+
                         drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
@@ -143,8 +143,9 @@ public class SettingsActivity extends AppCompatActivity {
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
                         backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+                        backgroundStroke = (GradientDrawable)binding.displayNameLinearLayout.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
 
-                        binding.displayNameTil.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.hint_dark)));
                         break;
                 }
 

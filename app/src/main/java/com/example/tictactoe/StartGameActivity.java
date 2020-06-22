@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -47,8 +48,6 @@ public class StartGameActivity extends AppCompatActivity {
     SharedPreferences playerPreferences;
     SharedPreferences.Editor editor;
 
-    VectorDrawable drawable;
-
     FirebaseFirestore createGame = FirebaseFirestore.getInstance();
 
     @Override
@@ -64,15 +63,15 @@ public class StartGameActivity extends AppCompatActivity {
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
                 binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
-                setTheme(R.drawable.wooden_background,R.drawable.background_with_text_wooden, R.color.black, 1, false);
+                setTheme(R.drawable.wooden_background,R.drawable.background_with_text_wooden, R.color.white);
                 break;
             case 1:
                 binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.space_background,R.drawable.background_with_text_space, R.color.white, 0,false);
+                setTheme(R.drawable.space_background,R.drawable.background_with_text_space, R.color.white);
                 break;
             case 2:
                 binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                setTheme(R.drawable.ocean_background,R.drawable.background_with_text_ocean, R.color.black, 1,true);
+                setTheme(R.drawable.ocean_background,R.drawable.background_with_text_ocean, R.color.black);
                 break;
         }
 
@@ -298,23 +297,22 @@ public class StartGameActivity extends AppCompatActivity {
         });
     }
 
-    private void setTheme(int background, int boardBackground, int textColour, int buttonColour,boolean changeOtherColour) {
+    private void setTheme(int background, int boardBackground, int textColour) {
+        VectorDrawable drawable;
+        GradientDrawable backgroundStroke;
+
         binding.startGameActivityBackground.setImageResource(background);
         binding.boardBackground.setImageResource(boardBackground);
 
-        if (changeOtherColour){
-            binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
-            binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
-            binding.settingsBtn.setImageResource(R.drawable.ic_settings);
-            drawable = (VectorDrawable)binding.settingsBtn.getDrawable();
-            switch(buttonColour){
-                case 0:
-                default:
-                    drawable.setTint(getResources().getColor(R.color.white));
-                case 1:
-                    drawable.setTint(getResources().getColor(R.color.black));
-            }
+        binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
+        binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
+        binding.settingsBtn.setImageResource(R.drawable.ic_settings);
+        drawable = (VectorDrawable) binding.settingsBtn.getDrawable();
+        drawable.setTint(getResources().getColor(textColour));
 
-        }
+        backgroundStroke = (GradientDrawable)binding.playOnlineBtn.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
+        backgroundStroke = (GradientDrawable)binding.passAndPlayBtn.getBackground();
+        backgroundStroke.setStroke(2, getResources().getColor(textColour));
     }
 }
