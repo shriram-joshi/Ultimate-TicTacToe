@@ -1,9 +1,10 @@
 package com.example.tictactoe;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -115,8 +116,28 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
         binding.leaveGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivityPassAndPlay.this,StartGameActivity.class));
-                finish();
+                final Dialog leaveGameDialog = new Dialog(MainActivityPassAndPlay.this);
+                leaveGameDialog.setContentView(R.layout.dialogbox_leave_game);
+                leaveGameDialog.setCancelable(true);
+                Button yes = leaveGameDialog.findViewById(R.id.yes_leave), no = leaveGameDialog.findViewById(R.id.dont_leave);
+
+                leaveGameDialog.show();
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(MainActivityPassAndPlay.this,StartGameActivity.class));
+                        finish();
+                        leaveGameDialog.dismiss();
+                    }
+                });
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        leaveGameDialog.dismiss();
+                    }
+                });
             }
         });
 
@@ -165,7 +186,7 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
 
     private void setTheme(int background, int boardBackground, int boardTextColour, int otherTextColour) {
         GradientDrawable backgroundStroke;
-        VectorDrawable drawable;
+        Drawable drawable;
 
         binding.mainActivityPnpBackground.setImageResource(background);
         binding.boardBackground.setBackgroundResource(boardBackground);
@@ -204,7 +225,7 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
         backgroundStroke = (GradientDrawable)binding.nextRoundBtn.getBackground();
         backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
 
-        drawable = (VectorDrawable) binding.leaveGame.getDrawable();
+        drawable = (Drawable) binding.leaveGame.getDrawable();
         drawable.setTint(getResources().getColor(otherTextColour));
     }
 

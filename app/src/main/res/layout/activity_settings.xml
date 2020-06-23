@@ -75,8 +75,8 @@
                     android:hint="Display Name"
                     android:textColorHint="@color/hint_light"
                     android:maxLength="10"
-                    android:enabled="false"
-                    android:maxLines="1"/>
+                    android:lines="1"
+                    android:enabled="false" />
             </LinearLayout>
 
 <!--            <com.google.android.material.textfield.TextInputLayout-->

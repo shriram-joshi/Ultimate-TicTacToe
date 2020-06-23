@@ -16,7 +16,7 @@
         android:id="@+id/copyright_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="© Shriram Joshi"
+        android:text="@string/shriram_joshi"
         android:textStyle="italic"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -48,22 +48,35 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_template"
                 android:fontFamily="@font/cambay"
-                android:text="Play with friend"
+                android:text="@string/play_with_a_friend"
                 android:textColor="@color/white"
-                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginEnd="10dp"/>
 
             <Button
                 android:id="@+id/pass_and_play_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pass And Play"
+                android:text="@string/pass_and_play"
                 android:textColor="@color/white"
                 android:fontFamily="@font/cambay"
                 android:background="@drawable/border_template"
-                android:padding="10dp"/>
+                android:paddingTop="10dp"
+                android:paddingHorizontal="10dp"/>
 
         </LinearLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/how_to_play_link"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/how_to_play"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:fontFamily="@font/cambay"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:layout_gravity="center_horizontal"/>-->
 
     </LinearLayout>
 

@@ -2,8 +2,8 @@ package com.example.tictactoe;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
             ,R.drawable.space_background
             ,R.drawable.ocean_background
     };
-    VectorDrawable drawable;
+    Drawable drawable;
     GradientDrawable backgroundStroke;
 
     @Override
@@ -46,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor = playerPreferences.edit();
         Toast.makeText(this, "Swipe for more themes", Toast.LENGTH_LONG).show();
 
-        binding.playerName.setText(playerPreferences.getString("playerName", "Friend"));
+        binding.playerName.setText(playerPreferences.getString("playerName", "Player"));
 
         adapter = new ThemeItemAdapter();
 
@@ -94,10 +94,10 @@ public class SettingsActivity extends AppCompatActivity {
                         binding.settingsText.setTextColor(getResources().getColor(R.color.white));
                         binding.themeText.setTextColor(getResources().getColor(R.color.white));
 
-                        drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
+                        drawable = (Drawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
-                        drawable = (VectorDrawable)binding.setThemeBtn.getDrawable();
+                        drawable = (Drawable)binding.setThemeBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
 
                         if (playerNameEdited){
@@ -105,7 +105,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }else{
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
                         }
-                        drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                        drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
 
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
@@ -124,17 +124,17 @@ public class SettingsActivity extends AppCompatActivity {
                         binding.settingsText.setTextColor(getResources().getColor(R.color.black));
                         binding.themeText.setTextColor(getResources().getColor(R.color.black));
 
-                        drawable = (VectorDrawable)binding.leaveSettingsBtn.getDrawable();
+                        drawable = (Drawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
-                        drawable = (VectorDrawable)binding.setThemeBtn.getDrawable();
+                        drawable = (Drawable)binding.setThemeBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
                         if (playerNameEdited){
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
                         }else{
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
                         }
-                        drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                        drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
 
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
@@ -157,27 +157,27 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (playerNameEdited){
-                    if (!(binding.playerName.getText().toString().equals(playerPreferences.getString("playerName", "Friend")))) {
+                    if (!(binding.playerName.getText().toString().equals(playerPreferences.getString("playerName", "Player")))) {
                         editor.putString("playerName", binding.playerName.getText().toString());
                         editor.apply();
                         Toast.makeText(SettingsActivity.this, "Display name saved!", Toast.LENGTH_SHORT).show();
                     }
 
                     if (binding.playerName.getText().toString().isEmpty()){
-                        binding.playerName.setText("Friend");
-                        editor.putString("playerName", "Friend");
+                        binding.playerName.setText("Player");
+                        editor.putString("playerName", "PLayer");
                         editor.apply();
                     }
 
                     binding.playerName.setEnabled(false);
                     binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
-                    drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                    drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
 
                     playerNameEdited = false;
                 } else {
                     binding.playerName.setEnabled(true);
                     binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
-                    drawable = (VectorDrawable)binding.editPlayerNameBtn.getDrawable();
+                    drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
                     playerNameEdited = true;
                 }
                 if (binding.viewPager2.getCurrentItem() == 0 || binding.viewPager2.getCurrentItem() == 1)

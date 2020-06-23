@@ -216,7 +216,7 @@
                             android:layout_height="96dp"
                             android:textSize="56sp"
                             android:textColor="@color/black"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:id="@+id/b11" />
 
                         <Button
@@ -225,7 +225,7 @@
                             android:textSize="56sp"
                             android:textColor="@color/black"
                             android:id="@+id/b12"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"/>
 
@@ -235,7 +235,7 @@
                             android:textSize="56sp"
                             android:textColor="@color/black"
                             android:id="@+id/b13"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"/>
 
@@ -253,7 +253,7 @@
                             android:layout_height="96dp"
                             android:textSize="56sp"
                             android:textColor="@color/black"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:id="@+id/b21" />
 
                         <Button
@@ -262,7 +262,7 @@
                             android:textSize="56sp"
                             android:textColor="@color/black"
                             android:id="@+id/b22"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"/>
 
@@ -272,7 +272,7 @@
                             android:textSize="56sp"
                             android:textColor="@color/black"
                             android:id="@+id/b23"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"/>
 
@@ -289,7 +289,7 @@
                             android:layout_height="96dp"
                             android:textSize="56sp"
                             android:textColor="@color/black"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:id="@+id/b31" />
 
                         <Button
@@ -298,7 +298,7 @@
                             android:textSize="56sp"
                             android:textColor="@color/black"
                             android:id="@+id/b32"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"/>
 
@@ -308,7 +308,7 @@
                             android:textSize="56sp"
                             android:textColor="@color/black"
                             android:id="@+id/b33"
-                            android:background="@color/fill_null"
+                            android:background="@android:color/transparent"
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"/>
 
@@ -320,7 +320,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Game starts with X"
+                    android:text="@string/game_starts_with_x"
                     android:textColor="@color/white"
                     android:textAlignment="center"
                     android:padding="10dp"
