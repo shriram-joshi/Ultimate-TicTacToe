@@ -4,8 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -56,6 +56,8 @@ public class StartGameActivity extends AppCompatActivity {
         binding = ActivityStartGameBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+//        binding.howToPlayLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
         editor = playerPreferences.edit();
@@ -298,7 +300,7 @@ public class StartGameActivity extends AppCompatActivity {
     }
 
     private void setTheme(int background, int boardBackground, int textColour) {
-        VectorDrawable drawable;
+        Drawable drawable;
         GradientDrawable backgroundStroke;
 
         binding.startGameActivityBackground.setImageResource(background);
@@ -307,8 +309,9 @@ public class StartGameActivity extends AppCompatActivity {
         binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
         binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
         binding.copyrightText.setTextColor(getResources().getColor(textColour));
+//        binding.howToPlayLink.setTextColor(getResources().getColor(textColour));
         binding.settingsBtn.setImageResource(R.drawable.ic_settings);
-        drawable = (VectorDrawable) binding.settingsBtn.getDrawable();
+        drawable = (Drawable) binding.settingsBtn.getDrawable();
         drawable.setTint(getResources().getColor(textColour));
 
         backgroundStroke = (GradientDrawable)binding.playOnlineBtn.getBackground();

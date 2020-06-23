@@ -1,9 +1,10 @@
 package com.example.tictactoe;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -67,7 +68,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         //Initialization after game start
         {
             localGame.setGameID(getIntent().getStringExtra("gameID"));
-            localGame.setPlayerName(getIntent().getStringExtra("playerName"));
+            localGame.setPlayerName(playerPreferences.getString("playerName", "Friend"));
             localGame.setTurn(getIntent().getBooleanExtra("turn", false));
             localGame.setGameState(0);
             localGame.setLastButtonPressed((long)0);
@@ -300,10 +301,30 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         binding.leaveGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isLeftGame = true;
-                gameSync.collection("Active Games").document("G" + localGame.getGameID()).delete();
-                editor.putString("gameID", null);
-                editor.apply();
+                final Dialog leaveGameDialog = new Dialog(MainActivityPlayOnline.this);
+                leaveGameDialog.setContentView(R.layout.dialogbox_leave_game);
+                leaveGameDialog.setCancelable(true);
+                Button yes = leaveGameDialog.findViewById(R.id.yes_leave), no = leaveGameDialog.findViewById(R.id.dont_leave);
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        isLeftGame = true;
+                        gameSync.collection("Active Games").document("G" + localGame.getGameID()).delete();
+                        editor.putString("gameID", null);
+                        editor.apply();
+                        leaveGameDialog.dismiss();
+                    }
+                });
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        leaveGameDialog.dismiss();
+                    }
+                });
+
+                leaveGameDialog.show();
             }
         });
 
@@ -311,7 +332,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
 
     private void setTheme(int background, int boardBackground, int boardTextColour, int otherTextColour) {
         GradientDrawable backgroundStroke;
-        VectorDrawable drawable;
+        Drawable drawable;
 
         binding.mainActivityPoBackground.setImageResource(background);
         binding.boardBackground.setBackgroundResource(boardBackground);
@@ -350,7 +371,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         backgroundStroke = (GradientDrawable)binding.nextRoundBtn.getBackground();
         backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
 
-        drawable = (VectorDrawable) binding.leaveGame.getDrawable();
+        drawable = (Drawable) binding.leaveGame.getDrawable();
         drawable.setTint(getResources().getColor(otherTextColour));
     }
 

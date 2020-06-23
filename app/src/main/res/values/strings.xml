@@ -6,5 +6,9 @@
     <string name="win_string"> wins the round!</string>
     <string name="share_this_code_prompt_1">Share this code with your friend\n and don\'t close this window</string>
     <string name="share_this_code_prompt_2">Create a 4 digit code\n for your game</string>
+    <string name="how_to_play"><a href="https://shriram-joshi.github.io/Ultimate-TicTacToe/">How to play</a></string>
+    <string name="pass_and_play">Pass And Play</string>
+    <string name="play_with_a_friend">Play with a friend</string>
+    <string name="shriram_joshi">© Shriram Joshi</string>
 
 </resources>

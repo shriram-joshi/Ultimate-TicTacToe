@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@drawable/popup_shape"
-    android:backgroundTint="@color/hint_light">
+    android:background="@color/hint_light">
 
     <Space
         android:layout_width="match_parent"
