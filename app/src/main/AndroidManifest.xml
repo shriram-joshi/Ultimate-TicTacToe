@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tictactoe">
 
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -12,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar.FullScreen">
-        <activity android:name=".MainActivityPassAndPlay"></activity>
+        <activity android:name=".StartGameActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivityPassAndPlay" />
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
@@ -20,8 +21,9 @@
             android:name=".MainActivityPlayOnline"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StartGameActivity"
-            android:screenOrientation="portrait">
+            android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
