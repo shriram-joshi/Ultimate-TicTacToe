@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,8 @@ public class MainActivityPlayOnline extends AppCompatActivity {
 
     SharedPreferences playerPreferences;
     SharedPreferences.Editor editor;
+
+    MediaPlayer clickedButton;
 
     FirebaseFirestore gameSync = FirebaseFirestore.getInstance();
     HashMap<String, Object> updateGame = new HashMap<>();
@@ -417,7 +420,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                     && (binding.b31.getText() == binding.b32.getText() && binding.b32.getText() == binding.b33.getText()))
             || ((!binding.b11.isEnabled() && !binding.b21.isEnabled() && !binding.b31.isEnabled())
                     && (binding.b11.getText() == binding.b21.getText() && binding.b21.getText() == binding.b31.getText()))
-            || ((!binding.b12.isEnabled() && !binding.b22.isEnabled() && !binding.b31.isEnabled())
+            || ((!binding.b12.isEnabled() && !binding.b22.isEnabled() && !binding.b32.isEnabled())
                     && (binding.b12.getText() == binding.b22.getText() && binding.b22.getText() == binding.b32.getText()))
             || ((!binding.b13.isEnabled() && !binding.b23.isEnabled() && !binding.b33.isEnabled())
                     && (binding.b13.getText() == binding.b23.getText() && binding.b23.getText() == binding.b33.getText()))
@@ -432,6 +435,9 @@ public class MainActivityPlayOnline extends AppCompatActivity {
 
         if (localGame.isTurn()){
             button.setEnabled(false);
+
+            clickedButton = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.you_button_click);
+            clickedButton.start();
 
             if (localGame.getGameState()%2 == 0){
                 button.setText("O");
@@ -486,6 +492,9 @@ public class MainActivityPlayOnline extends AppCompatActivity {
             }
         }else if (isUiUpdate) {
             button.setEnabled(false);
+
+            clickedButton = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.opponent_button_click);
+            clickedButton.start();
 
             if (localGame.getGameState()%2 == 0){
                 button.setText("O");

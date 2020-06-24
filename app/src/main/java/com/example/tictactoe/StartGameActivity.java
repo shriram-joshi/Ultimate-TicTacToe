@@ -9,6 +9,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,7 +58,7 @@ public class StartGameActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-//        binding.howToPlayLink.setMovementMethod(LinkMovementMethod.getInstance());
+        binding.howToPlayLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
         editor = playerPreferences.edit();
@@ -309,7 +310,7 @@ public class StartGameActivity extends AppCompatActivity {
         binding.playOnlineBtn.setTextColor(getResources().getColor(textColour));
         binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
         binding.copyrightText.setTextColor(getResources().getColor(textColour));
-//        binding.howToPlayLink.setTextColor(getResources().getColor(textColour));
+        binding.howToPlayLink.setTextColor(getResources().getColor(textColour));
         binding.settingsBtn.setImageResource(R.drawable.ic_settings);
         drawable = (Drawable) binding.settingsBtn.getDrawable();
         drawable.setTint(getResources().getColor(textColour));

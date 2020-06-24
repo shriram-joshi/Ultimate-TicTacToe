@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,8 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
     String firstPlayer;
 
     SharedPreferences playerPreferences;
+
+    MediaPlayer buttonClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,8 +239,12 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
         button.setEnabled(false);
 
         if (gameState%2 == 0){
+            buttonClicked = MediaPlayer.create(MainActivityPassAndPlay.this, R.raw.board_button_o_click);
+            buttonClicked.start();
             button.setText("O");
         } else {
+            buttonClicked = MediaPlayer.create(MainActivityPassAndPlay.this, R.raw.board_button_x_click);
+            buttonClicked.start();
             button.setText("X");
         }
         if (win()){
@@ -275,7 +282,7 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
                         && (binding.b31.getText() == binding.b32.getText() && binding.b32.getText() == binding.b33.getText()))
                         || ((!binding.b11.isEnabled() && !binding.b21.isEnabled() && !binding.b31.isEnabled())
                         && (binding.b11.getText() == binding.b21.getText() && binding.b21.getText() == binding.b31.getText()))
-                        || ((!binding.b12.isEnabled() && !binding.b22.isEnabled() && !binding.b31.isEnabled())
+                        || ((!binding.b12.isEnabled() && !binding.b22.isEnabled() && !binding.b32.isEnabled())
                         && (binding.b12.getText() == binding.b22.getText() && binding.b22.getText() == binding.b32.getText()))
                         || ((!binding.b13.isEnabled() && !binding.b23.isEnabled() && !binding.b33.isEnabled())
                         && (binding.b13.getText() == binding.b23.getText() && binding.b23.getText() == binding.b33.getText()))
