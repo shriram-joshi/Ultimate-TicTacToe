@@ -68,10 +68,28 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                if (binding.viewPager2.getCurrentItem() == playerPreferences.getInt("themePref", 0))
-                    binding.setThemeBtn.setVisibility(View.GONE);
-                else
-                    binding.setThemeBtn.setVisibility(View.VISIBLE);
+                if (binding.viewPager2.getCurrentItem() == playerPreferences.getInt("themePref", 0)) {
+                    drawable = (Drawable)binding.setThemeBtn.getDrawable();
+                    drawable.setTint(getResources().getColor(R.color.check_green));
+                    backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                    backgroundStroke.setStroke(2, getResources().getColor(R.color.check_green));
+                } else {
+                    switch(binding.viewPager2.getCurrentItem()){
+                        case 0:
+                        case 1:
+                            drawable = (Drawable)binding.setThemeBtn.getDrawable();
+                            drawable.setTint(getResources().getColor(R.color.white));
+                            backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                            backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+                            break;
+                        case 2:
+                            drawable = (Drawable)binding.setThemeBtn.getDrawable();
+                            drawable.setTint(getResources().getColor(R.color.black));
+                            backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                            backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+                            break;
+                    }
+                }
 
                 //for background scale type
                 switch (binding.viewPager2.getCurrentItem()){
@@ -97,8 +115,6 @@ public class SettingsActivity extends AppCompatActivity {
                         drawable = (Drawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
-                        drawable = (Drawable)binding.setThemeBtn.getDrawable();
-                        drawable.setTint(getResources().getColor(R.color.white));
 
                         if (playerNameEdited){
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
@@ -111,8 +127,6 @@ public class SettingsActivity extends AppCompatActivity {
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
                         backgroundStroke = (GradientDrawable)binding.editPlayerNameBtn.getBackground();
-                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
-                        backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
                         backgroundStroke = (GradientDrawable)binding.displayNameLinearLayout.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
@@ -127,8 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
                         drawable = (Drawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
                         binding.setThemeBtn.setImageResource(R.drawable.ic_check);
-                        drawable = (Drawable)binding.setThemeBtn.getDrawable();
-                        drawable.setTint(getResources().getColor(R.color.black));
+
                         if (playerNameEdited){
                             binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
                         }else{
@@ -140,8 +153,6 @@ public class SettingsActivity extends AppCompatActivity {
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
                         backgroundStroke = (GradientDrawable)binding.editPlayerNameBtn.getBackground();
-                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
-                        backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
                         backgroundStroke = (GradientDrawable)binding.displayNameLinearLayout.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
@@ -192,10 +203,17 @@ public class SettingsActivity extends AppCompatActivity {
         binding.setThemeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putInt("themePref", binding.viewPager2.getCurrentItem());
-                editor.apply();
-                Toast.makeText(SettingsActivity.this, "Theme has been set!", Toast.LENGTH_LONG).show();
-                binding.setThemeBtn.setVisibility(View.GONE);
+                if (playerPreferences.getInt("themePref", 0) == binding.viewPager2.getCurrentItem())
+                    Toast.makeText(SettingsActivity.this, "The theme is already in use!", Toast.LENGTH_SHORT).show();
+                else {
+                    editor.putInt("themePref", binding.viewPager2.getCurrentItem());
+                    editor.apply();
+                    Toast.makeText(SettingsActivity.this, "Theme has been set!", Toast.LENGTH_SHORT).show();
+                    drawable = (Drawable)binding.setThemeBtn.getDrawable();
+                    drawable.setTint(getResources().getColor(R.color.check_green));
+                    backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
+                    backgroundStroke.setStroke(2, getResources().getColor(R.color.check_green));
+                }
             }
         });
 
