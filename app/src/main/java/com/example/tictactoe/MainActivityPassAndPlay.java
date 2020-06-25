@@ -24,7 +24,7 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
 
     SharedPreferences playerPreferences;
 
-    MediaPlayer buttonClicked;
+    MediaPlayer buttonClickedO, buttonClickedX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,9 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
         setContentView(view);
 
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
+
+        buttonClickedO = MediaPlayer.create(MainActivityPassAndPlay.this, R.raw.board_button_o_click);
+        buttonClickedX = MediaPlayer.create(MainActivityPassAndPlay.this, R.raw.board_button_x_click);
 
         firstPlayer = playerPreferences.getString("playerName", "Host");
 
@@ -239,13 +242,13 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
         button.setEnabled(false);
 
         if (gameState%2 == 0){
-            buttonClicked = MediaPlayer.create(MainActivityPassAndPlay.this, R.raw.board_button_o_click);
-            buttonClicked.start();
             button.setText("O");
+            if (playerPreferences.getBoolean("playSounds", true))
+                buttonClickedO.start();
         } else {
-            buttonClicked = MediaPlayer.create(MainActivityPassAndPlay.this, R.raw.board_button_x_click);
-            buttonClicked.start();
             button.setText("X");
+            if (playerPreferences.getBoolean("playSounds", true))
+                buttonClickedX.start();
         }
         if (win()){
             stopGame();

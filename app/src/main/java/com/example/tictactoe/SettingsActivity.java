@@ -48,6 +48,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         binding.playerName.setText(playerPreferences.getString("playerName", "Player"));
 
+        if (playerPreferences.getBoolean("playSounds",true))
+            binding.setSoundsPref.setImageResource(R.drawable.ic_unmute);
+        else
+            binding.setSoundsPref.setImageResource(R.drawable.ic_mute);
+
         adapter = new ThemeItemAdapter();
 
         int padding = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
@@ -74,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
                     backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
                     backgroundStroke.setStroke(2, getResources().getColor(R.color.check_green));
                 } else {
+                    //change the setTheme button appearance
                     switch(binding.viewPager2.getCurrentItem()){
                         case 0:
                         case 1:
@@ -81,6 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
                             drawable.setTint(getResources().getColor(R.color.white));
                             backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
                             backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+
                             break;
                         case 2:
                             drawable = (Drawable)binding.setThemeBtn.getDrawable();
@@ -102,6 +109,7 @@ public class SettingsActivity extends AppCompatActivity {
                         binding.settingsActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         break;
                 }
+                binding.settingsActivityBackground.setImageResource(backgroundResource[binding.viewPager2.getCurrentItem()]);
 
                 //for button and textView UI changes
                 switch (binding.viewPager2.getCurrentItem()){
@@ -111,24 +119,29 @@ public class SettingsActivity extends AppCompatActivity {
                         binding.playerName.setTextColor(getResources().getColor(R.color.white));
                         binding.settingsText.setTextColor(getResources().getColor(R.color.white));
                         binding.themeText.setTextColor(getResources().getColor(R.color.white));
+                        binding.soundsText.setTextColor(getResources().getColor(R.color.white));
 
                         drawable = (Drawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
-                        binding.setThemeBtn.setImageResource(R.drawable.ic_check);
-
-                        if (playerNameEdited){
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
-                        }else{
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
-                        }
                         drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
+                        drawable = (Drawable)binding.setSoundsPref.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
+//                        if (playerNameEdited){
+//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_30dp);
+//                        }else{
+//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
+//                        }
+//                        drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
+//                        drawable.setTint(getResources().getColor(R.color.white));
 
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
                         backgroundStroke = (GradientDrawable)binding.editPlayerNameBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
                         backgroundStroke = (GradientDrawable)binding.displayNameLinearLayout.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
+                        backgroundStroke = (GradientDrawable)binding.setSoundsPref.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
 
                         break;
@@ -137,18 +150,21 @@ public class SettingsActivity extends AppCompatActivity {
                         binding.playerName.setTextColor(getResources().getColor(R.color.black));
                         binding.settingsText.setTextColor(getResources().getColor(R.color.black));
                         binding.themeText.setTextColor(getResources().getColor(R.color.black));
+                        binding.soundsText.setTextColor(getResources().getColor(R.color.black));
 
                         drawable = (Drawable)binding.leaveSettingsBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
-                        binding.setThemeBtn.setImageResource(R.drawable.ic_check);
-
-                        if (playerNameEdited){
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
-                        }else{
-                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
-                        }
                         drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
+                        drawable = (Drawable)binding.setSoundsPref.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
+//                        if (playerNameEdited){
+//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_30dp);
+//                        }else{
+//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
+//                        }
+//                        drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
+//                        drawable.setTint(getResources().getColor(R.color.black));
 
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
@@ -156,11 +172,12 @@ public class SettingsActivity extends AppCompatActivity {
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
                         backgroundStroke = (GradientDrawable)binding.displayNameLinearLayout.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
+                        backgroundStroke = (GradientDrawable)binding.setSoundsPref.getBackground();
+                        backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
 
                         break;
                 }
 
-                binding.settingsActivityBackground.setImageResource(backgroundResource[binding.viewPager2.getCurrentItem()]);
             }
         });
 
@@ -187,7 +204,7 @@ public class SettingsActivity extends AppCompatActivity {
                     playerNameEdited = false;
                 } else {
                     binding.playerName.setEnabled(true);
-                    binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check);
+                    binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_30dp);
                     drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
                     playerNameEdited = true;
                 }
@@ -213,6 +230,33 @@ public class SettingsActivity extends AppCompatActivity {
                     drawable.setTint(getResources().getColor(R.color.check_green));
                     backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
                     backgroundStroke.setStroke(2, getResources().getColor(R.color.check_green));
+                }
+            }
+        });
+
+        binding.setSoundsPref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (playerPreferences.getBoolean("playSounds",true)){
+                    binding.setSoundsPref.setImageResource(R.drawable.ic_mute);
+                    editor.putBoolean("playSounds",false);
+                } else {
+                    binding.setSoundsPref.setImageResource(R.drawable.ic_unmute);
+                    editor.putBoolean("playSounds",true);
+                }
+                editor.apply();
+
+                switch (binding.viewPager2.getCurrentItem()){
+                    case 0:
+                    case 1:
+                    default:
+                        drawable = (Drawable)binding.setSoundsPref.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.white));
+                        break;
+                    case 2:
+                        drawable = (Drawable)binding.setSoundsPref.getDrawable();
+                        drawable.setTint(getResources().getColor(R.color.black));
+                        break;
                 }
             }
         });
