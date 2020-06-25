@@ -38,7 +38,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
     SharedPreferences playerPreferences;
     SharedPreferences.Editor editor;
 
-    MediaPlayer clickedButton;
+    MediaPlayer youClickedButtonSound, opponentClickedButtonSound, waitingSound;
 
     FirebaseFirestore gameSync = FirebaseFirestore.getInstance();
     HashMap<String, Object> updateGame = new HashMap<>();
@@ -52,6 +52,10 @@ public class MainActivityPlayOnline extends AppCompatActivity {
 
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
         editor = playerPreferences.edit();
+
+        youClickedButtonSound = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.you_button_click);
+        opponentClickedButtonSound = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.opponent_button_click);
+        waitingSound = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.waiting_for_opponent);
 
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
@@ -262,6 +266,9 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                 {
                     binding.msg.append("\nWaiting for " + localGame.getOpponentName());
 
+                    if (playerPreferences.getBoolean("playSounds",true))
+                        waitingSound.start();
+
                     gameSync.collection("Active Games").document("G" + localGame.getGameID()).get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -436,8 +443,8 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         if (localGame.isTurn()){
             button.setEnabled(false);
 
-            clickedButton = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.you_button_click);
-            clickedButton.start();
+            if (playerPreferences.getBoolean("playSounds", true))
+                youClickedButtonSound.start();
 
             if (localGame.getGameState()%2 == 0){
                 button.setText("O");
@@ -493,8 +500,8 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         }else if (isUiUpdate) {
             button.setEnabled(false);
 
-            clickedButton = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.opponent_button_click);
-            clickedButton.start();
+            if (playerPreferences.getBoolean("playSounds", true))
+                opponentClickedButtonSound.start();
 
             if (localGame.getGameState()%2 == 0){
                 button.setText("O");
@@ -529,7 +536,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
             } else{
                 localGame.setGameState(localGame.getGameState()+1);
                 localGame.setTurn(true);
-                binding.turnTv.setText("You");
+                binding.turnTv.setText(R.string.you);
             }
         }
     }
