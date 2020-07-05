@@ -13,11 +13,32 @@
         android:src="@drawable/wooden_background"
         android:scaleType="fitXY"/>
 
-    <ImageView
-        android:id="@+id/board_background"
+    <LinearLayout
+        android:id="@+id/animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/background_with_text_wooden"
-        android:layout_gravity="center"/>
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/board_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background_with_text_wooden"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/copyright_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shriram_joshi"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/cambay"
+            android:paddingTop="5dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="100dp"/>
+
+    </LinearLayout>
 
 </FrameLayout>

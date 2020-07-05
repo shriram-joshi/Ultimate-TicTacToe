@@ -1,7 +1,6 @@
 package com.example.tictactoe;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -25,6 +24,8 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
     SharedPreferences playerPreferences;
 
     MediaPlayer buttonClickedO, buttonClickedX;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,28 +123,7 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
         binding.leaveGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog leaveGameDialog = new Dialog(MainActivityPassAndPlay.this);
-                leaveGameDialog.setContentView(R.layout.dialogbox_leave_game);
-                leaveGameDialog.setCancelable(true);
-                Button yes = leaveGameDialog.findViewById(R.id.yes_leave), no = leaveGameDialog.findViewById(R.id.dont_leave);
-
-                leaveGameDialog.show();
-
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(MainActivityPassAndPlay.this,StartGameActivity.class));
-                        finish();
-                        leaveGameDialog.dismiss();
-                    }
-                });
-
-                no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        leaveGameDialog.dismiss();
-                    }
-                });
+                onBackPressed();
             }
         });
 
@@ -188,7 +168,30 @@ public class MainActivityPassAndPlay extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        final Dialog leaveGameDialog = new Dialog(MainActivityPassAndPlay.this);
+        leaveGameDialog.setContentView(R.layout.dialogbox_leave_game);
+        leaveGameDialog.setCancelable(true);
+        Button yes = leaveGameDialog.findViewById(R.id.yes_leave), no = leaveGameDialog.findViewById(R.id.dont_leave);
 
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                leaveGameDialog.dismiss();
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leaveGameDialog.dismiss();
+            }
+        });
+
+        leaveGameDialog.show();
+    }
 
     private void setTheme(int background, int boardBackground, int boardTextColour, int otherTextColour) {
         GradientDrawable backgroundStroke;

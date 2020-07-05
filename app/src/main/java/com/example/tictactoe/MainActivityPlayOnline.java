@@ -311,33 +311,38 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         binding.leaveGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog leaveGameDialog = new Dialog(MainActivityPlayOnline.this);
-                leaveGameDialog.setContentView(R.layout.dialogbox_leave_game);
-                leaveGameDialog.setCancelable(true);
-                Button yes = leaveGameDialog.findViewById(R.id.yes_leave), no = leaveGameDialog.findViewById(R.id.dont_leave);
-
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        isLeftGame = true;
-                        gameSync.collection("Active Games").document("G" + localGame.getGameID()).delete();
-                        editor.putString("gameID", null);
-                        editor.apply();
-                        leaveGameDialog.dismiss();
-                    }
-                });
-
-                no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        leaveGameDialog.dismiss();
-                    }
-                });
-
-                leaveGameDialog.show();
+                onBackPressed();
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        final Dialog leaveGameDialog = new Dialog(MainActivityPlayOnline.this);
+        leaveGameDialog.setContentView(R.layout.dialogbox_leave_game);
+        leaveGameDialog.setCancelable(true);
+        Button yes = leaveGameDialog.findViewById(R.id.yes_leave), no = leaveGameDialog.findViewById(R.id.dont_leave);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isLeftGame = true;
+                gameSync.collection("Active Games").document("G" + localGame.getGameID()).delete();
+                editor.putString("gameID", null);
+                editor.apply();
+                leaveGameDialog.dismiss();
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leaveGameDialog.dismiss();
+            }
+        });
+
+        leaveGameDialog.show();
     }
 
     private void setTheme(int background, int boardBackground, int boardTextColour, int otherTextColour) {

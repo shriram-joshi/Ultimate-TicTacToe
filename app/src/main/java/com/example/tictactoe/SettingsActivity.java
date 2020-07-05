@@ -1,6 +1,5 @@
 package com.example.tictactoe;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -24,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     SharedPreferences playerPreferences;
     SharedPreferences.Editor editor;
+
     boolean playerNameEdited=false;
 
     ThemeItemAdapter adapter;
@@ -264,8 +264,7 @@ public class SettingsActivity extends AppCompatActivity {
         binding.leaveSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SettingsActivity.this, StartGameActivity.class));
-                finish();
+                onBackPressed();
             }
         });
     }
