@@ -18,7 +18,7 @@
         android:inputType="number"
         android:maxLength="4"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="5dp"/>
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/joining_tv"
@@ -40,6 +40,8 @@
         android:fontFamily="sans-serif"
         android:background="@drawable/border_template"
         android:backgroundTint="@color/hint_dark"
-        android:layout_margin="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="joinGameClicked"/>
 
 </LinearLayout>

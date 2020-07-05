@@ -51,7 +51,8 @@
             android:fontFamily="sans-serif"
             android:background="@drawable/border_template"
             android:backgroundTint="@color/hint_dark"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:onClick="createHostingClicked"/>
 
         <Button
             android:id="@+id/cancel_hosting"
@@ -62,7 +63,8 @@
             android:fontFamily="sans-serif"
             android:background="@drawable/border_template"
             android:backgroundTint="@color/hint_dark"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:onClick="cancelHostingClicked"/>
 
     </LinearLayout>
 
