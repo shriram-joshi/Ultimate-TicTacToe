@@ -29,8 +29,7 @@ Ultimate TicTacToe is an online two player TicTacToe game for Android.
 2. To chnage the theme go to the settings and swipe left/right on the tictactoe board in the settings meun. To set the theme click on the tick mark that appears bellow it. 
 3. To switch on/off the in game sounds click on the speaker icon.
 
-###### _Credits_
+### _Made with love by Shriram Joshi._
+
+##### _Credits_
 Special thanks to Hersh Kumar(https://github.com/unc0ded) for his contribution to the project.
-
-
-_Made with love by Shriram Joshi._
