@@ -27,6 +27,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -61,7 +63,6 @@ public class StartGameActivity extends AppCompatActivity {
         binding.howToPlayLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
-        editor = playerPreferences.edit();
 
         switch (playerPreferences.getInt("themePref",0)){
             case 0:
@@ -97,6 +98,7 @@ public class StartGameActivity extends AppCompatActivity {
 
     public void goToSettings(View view) {
         startActivity(new Intent(StartGameActivity.this, SettingsActivity.class));
+        finish();
     }
 
     public void hostGameClicked(View view) {
@@ -111,30 +113,39 @@ public class StartGameActivity extends AppCompatActivity {
         startGameDialog.show();
     }
     public void createHostingClicked(View view) {
+        editor = playerPreferences.edit();
         ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
         NetworkInfo activeNetwork = Objects.requireNonNull(cm).getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
         if (isConnected){
             startGameCodeEt.setEnabled(false);
             createHosting.setEnabled(false);
 
             if (startGameCodeEt.getText().toString().length() == 4) {
-                helpText.setText("Creating...");
+                helpText.setText(R.string.creating_text);
                 createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
                         .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.getData() == null) {
                             HashMap<String, Object> createNewGame = new HashMap<>();
+                            Date gameTimeStamp = Calendar.getInstance().getTime();
+//                            Timestamp timestamp = new Timestamp(gameTimeStamp);
+
                             createNewGame.put("gameID", startGameCodeEt.getText().toString());
                             createNewGame.put("gameIsActive", 0);
                             createNewGame.put("playerHost", playerPreferences.getString("playerName", "Host"));
+                            createNewGame.put("timeStamp", gameTimeStamp);
 
                             createGame.collection("Active Games")
                                     .document("G" + startGameCodeEt.getText().toString())
                                     .set(createNewGame);
+
+                            editor.putString("gameID", startGameCodeEt.getText().toString());
+                            editor.putBoolean("joinPending", true);
+                            editor.apply();
+                            createHosting.setEnabled(false);
 
                             createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
                                     .addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -153,20 +164,19 @@ public class StartGameActivity extends AppCompatActivity {
 
                                                         startGameDialog.dismiss();
                                                         startActivity(start);
+                                                        editor.putBoolean("joinPending", false);
+                                                        editor.apply();
                                                     }
                                                 }
                                             }
                                         }
                                     });
                             helpText.setText(R.string.share_this_code_prompt_1);
-                            editor.putString("gameID", startGameCodeEt.getText().toString());
-                            editor.apply();
-                            createHosting.setEnabled(false);
 
                         } else {
                             startGameCodeEt.setEnabled(true);
                             createHosting.setEnabled(true);
-                            helpText.setText(R.string.share_this_code_prompt_1);
+                            helpText.setText(R.string.sorry_try_again_text);
                             Toast.makeText(getApplicationContext(), "The code is already taken.", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -185,11 +195,14 @@ public class StartGameActivity extends AppCompatActivity {
         }
     }
     public void cancelHostingClicked(View view) {
+        editor = playerPreferences.edit();
         startGameDialog.dismiss();
         if (!(startGameCodeEt.isEnabled())){
             createGame.collection("Active Games")
                     .document("G" + startGameCodeEt.getText().toString()).delete();
             editor.putString("gameID", null);
+            editor.putBoolean("joinPending", false);
+            editor.apply();
         }
     }
 
@@ -205,7 +218,7 @@ public class StartGameActivity extends AppCompatActivity {
     public void joinGameClicked(View view) {
         ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        NetworkInfo activeNetwork = Objects.requireNonNull(cm).getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
 
@@ -224,7 +237,7 @@ public class StartGameActivity extends AppCompatActivity {
                             joiningTv.setVisibility(View.GONE);
                             Toast.makeText(getApplicationContext(), "Invalid code", Toast.LENGTH_LONG).show();
                         } else {
-                            if ((long)documentSnapshot.getData().get("gameIsActive") == 2){
+                            if ((long)documentSnapshot.getData().get("gameIsActive") > 0){
                                 Toast.makeText(StartGameActivity.this, "The game has already started", Toast.LENGTH_SHORT).show();
                                 joinGameCodeEt.setEnabled(true);
                                 joiningTv.setVisibility(View.GONE);
@@ -274,7 +287,7 @@ public class StartGameActivity extends AppCompatActivity {
         binding.passAndPlayBtn.setTextColor(getResources().getColor(textColour));
         binding.howToPlayLink.setTextColor(getResources().getColor(textColour));
         binding.settingsBtn.setImageResource(R.drawable.ic_settings);
-        drawable = (Drawable) binding.settingsBtn.getDrawable();
+        drawable = binding.settingsBtn.getDrawable();
         drawable.setTint(getResources().getColor(textColour));
 
         backgroundStroke = (GradientDrawable)binding.playOnlineBtn.getBackground();
