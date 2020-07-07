@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,7 +52,6 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         setContentView(view);
 
         playerPreferences = getApplicationContext().getSharedPreferences("userPreferences", MODE_PRIVATE);
-        editor = playerPreferences.edit();
 
         youClickedButtonSound = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.you_button_click);
         opponentClickedButtonSound = MediaPlayer.create(MainActivityPlayOnline.this, R.raw.opponent_button_click);
@@ -91,17 +91,17 @@ public class MainActivityPlayOnline extends AppCompatActivity {
             gameSync.collection("Active Games").document("G" + localGame.getGameID()).update(updateGame);
 
             if (localGame.isTurn()){
-                binding.turnTv.setText("You");
+                binding.turnTv.setText(R.string.you_text);
                 localGame.setGameState(1);
 
-                binding.msg.setText("You play as X");
+                binding.msg.setText(R.string.you_play_as_x_text);
 
                 updateGame.put("turn", localGame.getPlayerName());
                 gameSync.collection("Active Games").document("G" + localGame.getGameID()).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        localGame.setOpponentName("" + documentSnapshot.getData().get("playerFriend"));
+                        localGame.setOpponentName("" + Objects.requireNonNull(documentSnapshot.getData()).get("playerFriend"));
                         binding.opponentsNameTv.setText(localGame.getOpponentName());
                     }
                 });
@@ -110,11 +110,11 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        localGame.setOpponentName("" + documentSnapshot.getData().get("playerHost"));
+                        localGame.setOpponentName("" + Objects.requireNonNull(documentSnapshot.getData()).get("playerHost"));
                         binding.turnTv.setText(localGame.getOpponentName());
                         binding.opponentsNameTv.setText(localGame.getOpponentName());
 
-                        binding.msg.setText("You play as O");
+                        binding.msg.setText(R.string.you_play_as_o_text);
                     }
                 });
             }
@@ -171,14 +171,14 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                                 gameSync.collection("Active Games").document("G" + localGame.getGameID()).update(updateGame);
 
                                 if (localGame.isTurn()){
-                                    binding.turnTv.setText("You");
+                                    binding.turnTv.setText(R.string.you_text);
                                     localGame.setGameState(1);
-                                    binding.msg.setText("You play as X");
+                                    binding.msg.setText(R.string.you_play_as_x_text);
 
                                     updateGame.put("turn", localGame.getPlayerName());
                                 } else {
                                     binding.turnTv.setText(localGame.getOpponentName());
-                                    binding.msg.setText("You play as O");
+                                    binding.msg.setText(R.string.you_play_as_o_text);
                                 }
 
                                 gameSync.collection("Active Games").document("G" + localGame.getGameID()).update(updateGame);
@@ -273,7 +273,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            HashMap<String, Object> gameInstance = new HashMap<>(documentSnapshot.getData());
+                            HashMap<String, Object> gameInstance = new HashMap<>(Objects.requireNonNull(documentSnapshot.getData()));
                             if ((long)gameInstance.get("isWaiting") == 0){
                                 isWaiting = 1;
                                 
@@ -319,6 +319,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        editor = playerPreferences.edit();
         final Dialog leaveGameDialog = new Dialog(MainActivityPlayOnline.this);
         leaveGameDialog.setContentView(R.layout.dialogbox_leave_game);
         leaveGameDialog.setCancelable(true);
@@ -380,13 +381,12 @@ public class MainActivityPlayOnline extends AppCompatActivity {
         backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
         backgroundStroke = (GradientDrawable)binding.scoresBackground.getBackground();
         backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
-        backgroundStroke = (GradientDrawable)binding.youText.getBackground();
         backgroundStroke = (GradientDrawable)binding.msg.getBackground();
         backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
         backgroundStroke = (GradientDrawable)binding.nextRoundBtn.getBackground();
         backgroundStroke.setStroke(2, getResources().getColor(otherTextColour));
 
-        drawable = (Drawable) binding.leaveGame.getDrawable();
+        drawable = binding.leaveGame.getDrawable();
         drawable.setTint(getResources().getColor(otherTextColour));
     }
 
@@ -519,7 +519,8 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                 isStopGame = true;
                 binding.nextRoundBtn.setVisibility(View.VISIBLE);
                 binding.nextRoundBtn.setEnabled(true);
-                binding.msg.setText(localGame.getOpponentName() + " wins the round!");
+                binding.msg.setText(localGame.getOpponentName());
+                binding.msg.append(getString(R.string.wins_the_round_text));
                 localGame.setFriendScore(localGame.getFriendScore()+1);
                 binding.opponentsScoreTv.setText(String.valueOf(localGame.getFriendScore()));
 
@@ -541,7 +542,7 @@ public class MainActivityPlayOnline extends AppCompatActivity {
             } else{
                 localGame.setGameState(localGame.getGameState()+1);
                 localGame.setTurn(true);
-                binding.turnTv.setText(R.string.you);
+                binding.turnTv.setText(R.string.you_text);
             }
         }
     }

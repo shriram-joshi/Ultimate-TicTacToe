@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/hint_light">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your previous game is still active!"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/hint_dark"
+        android:gravity="center"
+        android:fontFamily="@font/cambay"
+        android:paddingTop="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you want to rejoin your previous game?"
+        android:textSize="16sp"
+        android:textColor="@color/hint_dark"
+        android:fontFamily="@font/cambay"
+        android:gravity="start"
+        android:paddingTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp">
+
+        <Button
+            android:id="@+id/yes_rejoin"
+            android:onClick="rejoinGameYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:textColor="@color/white"
+            android:background="@drawable/border_template"
+            android:backgroundTint="@color/hint_dark"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/dont_rejoin"
+            android:onClick="rejoinGameNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:textColor="@color/white"
+            android:background="@drawable/border_template"
+            android:backgroundTint="@color/hint_dark"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

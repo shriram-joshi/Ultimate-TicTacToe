@@ -11,6 +11,11 @@
     <string name="play_with_a_friend">Play with a friend</string>
     <string name="shriram_joshi">Made with ❤ by Shriram</string>
     <string name="game_starts_with_x">Game starts with X</string>
-    <string name="you">You</string>
+    <string name="creating_text">Creating…</string>
+    <string name="you_text">You</string>
+    <string name="you_play_as_x_text">You play as X</string>
+    <string name="you_play_as_o_text">You play as O</string>
+    <string name="wins_the_round_text">\" wins the round!\"</string>
+    <string name="sorry_try_again_text">Sorry!\nPlease try a different code!</string>
 
 </resources>

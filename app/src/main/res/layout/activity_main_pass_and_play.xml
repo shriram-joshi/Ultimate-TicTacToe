@@ -122,7 +122,7 @@
                             android:id="@+id/you_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="You"
+                            android:text="@string/you_text"
                             android:textColor="@color/white"
                             android:textAlignment="center"
                             android:textSize="18sp"

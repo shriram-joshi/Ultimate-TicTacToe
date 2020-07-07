@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="Are you sure you want to leave the game?"
         android:textSize="18sp"
-        android:textAlignment="center"
+        android:gravity="start"
         android:fontFamily="@font/cambay"
         android:paddingTop="5dp"
         android:layout_margin="10dp"
