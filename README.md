@@ -30,6 +30,6 @@ Ultimate TicTacToe is an online two player TicTacToe game for Android.
 3. To switch on/off the in game sounds click on the speaker icon.
 
 ##### Credits
-_Special thanks to **[Hersh Kumar]**(https://github.com/unc0ded) for his contribution to the project._
+_Special thanks to [**Hersh Kumar**](https://github.com/unc0ded) for his contribution to the project._
 
 #### _Made with love by [Shriram Joshi](https://github.com/shriram-joshi)._
