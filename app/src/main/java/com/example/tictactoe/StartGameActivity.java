@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tictactoe.databinding.ActivityStartGameBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,6 +53,8 @@ public class StartGameActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     FirebaseFirestore createGame = FirebaseFirestore.getInstance();
+
+    final int TIME_OUT_DURATION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +116,6 @@ public class StartGameActivity extends AppCompatActivity {
         startGameDialog.show();
     }
     public void createHostingClicked(View view) {
-        editor = playerPreferences.edit();
         ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = Objects.requireNonNull(cm).getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -129,55 +131,23 @@ public class StartGameActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.getData() == null) {
-                            HashMap<String, Object> createNewGame = new HashMap<>();
-                            Date gameTimeStamp = Calendar.getInstance().getTime();
-//                            Timestamp timestamp = new Timestamp(gameTimeStamp);
-
-                            createNewGame.put("gameID", startGameCodeEt.getText().toString());
-                            createNewGame.put("gameIsActive", 0);
-                            createNewGame.put("playerHost", playerPreferences.getString("playerName", "Host"));
-                            createNewGame.put("timeStamp", gameTimeStamp);
-
-                            createGame.collection("Active Games")
-                                    .document("G" + startGameCodeEt.getText().toString())
-                                    .set(createNewGame);
-
-                            editor.putString("gameID", startGameCodeEt.getText().toString());
-                            editor.putBoolean("joinPending", true);
-                            editor.apply();
-                            createHosting.setEnabled(false);
-
-                            createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
-                                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                                            if (documentSnapshot != null && documentSnapshot.exists()) {
-                                                if (documentSnapshot.getData() != null) {
-                                                    if ((long) documentSnapshot.getData().get("gameIsActive") == 1) {
-
-                                                        Intent start = new Intent(StartGameActivity.this, MainActivityPlayOnline.class);
-                                                        start.putExtra("gameID", startGameCodeEt.getText().toString());
-                                                        start.putExtra("turn", true);
-                                                        start.putExtra("playerName", playerPreferences.getString("playerName", "Host"));
-                                                        createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
-                                                                .update("gameIsActive", 2);
-
-                                                        startGameDialog.dismiss();
-                                                        startActivity(start);
-                                                        editor.putBoolean("joinPending", false);
-                                                        editor.apply();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    });
-                            helpText.setText(R.string.share_this_code_prompt_1);
-
+                            createNewGame();
                         } else {
-                            startGameCodeEt.setEnabled(true);
-                            createHosting.setEnabled(true);
-                            helpText.setText(R.string.sorry_try_again_text);
-                            Toast.makeText(getApplicationContext(), "The code is already taken.", Toast.LENGTH_LONG).show();
+                            Timestamp timestamp = Objects.requireNonNull((Timestamp)documentSnapshot.getData().get("timeStamp"));
+                            Calendar timeOutTime = Calendar.getInstance();
+                            timeOutTime.setTime(timestamp.toDate());
+                            timeOutTime.add(Calendar.HOUR, TIME_OUT_DURATION);
+
+                            if (new Date().after(timeOutTime.getTime())){
+                                createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
+                                        .delete();
+                                createNewGame();
+                            }else{
+                                startGameCodeEt.setEnabled(true);
+                                createHosting.setEnabled(true);
+                                helpText.setText(R.string.sorry_try_again_text);
+                                Toast.makeText(getApplicationContext(), "The code is already taken.", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
@@ -274,6 +244,52 @@ public class StartGameActivity extends AppCompatActivity {
             joiningTv.setVisibility(View.GONE);
             Toast.makeText(StartGameActivity.this, "No internet connection!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void createNewGame() {
+        editor = playerPreferences.edit();
+        HashMap<String, Object> createNewGame = new HashMap<>();
+        Timestamp timestamp = new Timestamp(new Date());
+
+        createNewGame.put("gameID", startGameCodeEt.getText().toString());
+        createNewGame.put("gameIsActive", 0);
+        createNewGame.put("playerHost", playerPreferences.getString("playerName", "Host"));
+        createNewGame.put("timeStamp", timestamp);
+
+        createGame.collection("Active Games")
+                .document("G" + startGameCodeEt.getText().toString())
+                .set(createNewGame);
+
+        editor.putString("gameID", startGameCodeEt.getText().toString());
+        editor.putBoolean("joinPending", true);
+        editor.apply();
+        createHosting.setEnabled(false);
+
+        createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (documentSnapshot != null && documentSnapshot.exists()) {
+                            if (documentSnapshot.getData() != null) {
+                                if ((long) documentSnapshot.getData().get("gameIsActive") == 1) {
+
+                                    Intent start = new Intent(StartGameActivity.this, MainActivityPlayOnline.class);
+                                    start.putExtra("gameID", startGameCodeEt.getText().toString());
+                                    start.putExtra("turn", true);
+                                    start.putExtra("playerName", playerPreferences.getString("playerName", "Host"));
+                                    createGame.collection("Active Games").document("G" + startGameCodeEt.getText().toString())
+                                            .update("gameIsActive", 2);
+
+                                    startGameDialog.dismiss();
+                                    startActivity(start);
+                                    editor.putBoolean("joinPending", false);
+                                    editor.apply();
+                                }
+                            }
+                        }
+                    }
+                });
+        helpText.setText(R.string.share_this_code_prompt_1);
     }
 
     private void setTheme(int background, int boardBackground, int textColour) {
