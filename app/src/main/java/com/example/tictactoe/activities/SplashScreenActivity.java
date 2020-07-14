@@ -72,6 +72,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                 binding.boardBackground.setImageResource(R.drawable.background_with_text_ocean);
                 binding.copyrightText.setTextColor(getResources().getColor(R.color.black));
                 break;
+            case 3:
+                binding.splashScreenActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                binding.splashScreenActivityBackground.setImageResource(R.drawable.black_background);
+                binding.boardBackground.setImageResource(R.drawable.background_with_text_black);
+                binding.copyrightText.setTextColor(getResources().getColor(R.color.white));
+                break;
         }
 
         final Animation fadeInBoard = AnimationUtils.loadAnimation(SplashScreenActivity.this, R.anim.fade_in_1500ms);

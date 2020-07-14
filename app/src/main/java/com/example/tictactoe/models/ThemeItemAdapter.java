@@ -22,6 +22,7 @@ public class ThemeItemAdapter extends RecyclerView.Adapter<ThemeItemAdapter.Them
         item.add(R.drawable.board_background_template_wooden);
         item.add(R.drawable.board_background_template_space);
         item.add(R.drawable.board_background_template_ocean);
+        item.add(R.drawable.board_background_template_black);
     }
 
     @NonNull
