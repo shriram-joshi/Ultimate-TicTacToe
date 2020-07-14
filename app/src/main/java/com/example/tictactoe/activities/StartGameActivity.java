@@ -82,6 +82,10 @@ public class StartGameActivity extends AppCompatActivity {
                 binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 setTheme(R.drawable.ocean_background,R.drawable.background_with_text_ocean, R.color.black);
                 break;
+            case 3:
+                binding.startGameActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                setTheme(R.drawable.black_background,R.drawable.background_with_text_black, R.color.white);
+                break;
         }
 
         binding.playOnlineBtn.setOnClickListener(new View.OnClickListener() {

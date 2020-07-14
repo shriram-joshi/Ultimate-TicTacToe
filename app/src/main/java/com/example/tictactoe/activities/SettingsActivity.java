@@ -33,6 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
             R.drawable.wooden_background
             ,R.drawable.space_background
             ,R.drawable.ocean_background
+            ,R.drawable.black_background
     };
     Drawable drawable;
     GradientDrawable backgroundStroke;
@@ -85,6 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
                     switch(binding.viewPager2.getCurrentItem()){
                         case 0:
                         case 1:
+                        case 3:
                             drawable = (Drawable)binding.setThemeBtn.getDrawable();
                             drawable.setTint(getResources().getColor(R.color.white));
                             backgroundStroke = (GradientDrawable)binding.setThemeBtn.getBackground();
@@ -104,6 +106,7 @@ public class SettingsActivity extends AppCompatActivity {
                 switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 2:
+                    case 3:
                         binding.settingsActivityBackground.setScaleType(ImageView.ScaleType.FIT_XY);
                         break;
                     case 1:
@@ -117,6 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
                 switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 1:
+                    case 3:
                         binding.displayNameText.setTextColor(getResources().getColor(R.color.hint_light));
                         binding.playerName.setTextColor(getResources().getColor(R.color.white));
                         binding.settingsText.setTextColor(getResources().getColor(R.color.white));
@@ -129,13 +133,6 @@ public class SettingsActivity extends AppCompatActivity {
                         drawable.setTint(getResources().getColor(R.color.white));
                         drawable = (Drawable)binding.setSoundsPref.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));
-//                        if (playerNameEdited){
-//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_30dp);
-//                        }else{
-//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
-//                        }
-//                        drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
-//                        drawable.setTint(getResources().getColor(R.color.white));
 
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.white));
@@ -160,13 +157,6 @@ public class SettingsActivity extends AppCompatActivity {
                         drawable.setTint(getResources().getColor(R.color.black));
                         drawable = (Drawable)binding.setSoundsPref.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.black));
-//                        if (playerNameEdited){
-//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_check_30dp);
-//                        }else{
-//                            binding.editPlayerNameBtn.setImageResource(R.drawable.ic_create);
-//                        }
-//                        drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
-//                        drawable.setTint(getResources().getColor(R.color.black));
 
                         backgroundStroke = (GradientDrawable)binding.leaveSettingsBtn.getBackground();
                         backgroundStroke.setStroke(2, getResources().getColor(R.color.black));
@@ -210,11 +200,17 @@ public class SettingsActivity extends AppCompatActivity {
                     drawable = (Drawable)binding.editPlayerNameBtn.getDrawable();
                     playerNameEdited = true;
                 }
-                if (binding.viewPager2.getCurrentItem() == 0 || binding.viewPager2.getCurrentItem() == 1)
-                {
-                    drawable.setTint(getResources().getColor(R.color.white));
-                }else if (binding.viewPager2.getCurrentItem() == 2){
-                    drawable.setTint(getResources().getColor(R.color.black));
+
+                switch (binding.viewPager2.getCurrentItem()){
+                    case 0:
+                    case 1:
+                    case 3:
+                    default:
+                        drawable.setTint(getResources().getColor(R.color.white));
+                        break;
+                    case 2:
+                        drawable.setTint(getResources().getColor(R.color.black));
+                        break;
                 }
             }
         });
@@ -251,6 +247,7 @@ public class SettingsActivity extends AppCompatActivity {
                 switch (binding.viewPager2.getCurrentItem()){
                     case 0:
                     case 1:
+                    case 3:
                     default:
                         drawable = (Drawable)binding.setSoundsPref.getDrawable();
                         drawable.setTint(getResources().getColor(R.color.white));

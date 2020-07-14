@@ -73,6 +73,10 @@ public class MainActivityPlayOnline extends AppCompatActivity {
                 binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 setTheme(R.drawable.ocean_background,R.drawable.board_background_template_ocean,  R.color.black, R.color.black);
                 break;
+            case 3:
+                binding.mainActivityPoBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                setTheme(R.drawable.black_background,R.drawable.board_background_template_black,  R.color.white, R.color.white);
+                break;
         }
 
         //Initialization after game start
