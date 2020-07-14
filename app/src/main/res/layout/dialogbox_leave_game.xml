@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to leave the game?"
+        android:text="@string/leave_game_dialog_text"
         android:textSize="18sp"
         android:gravity="start"
         android:fontFamily="@font/cambay"
@@ -28,21 +28,21 @@
             android:id="@+id/yes_leave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Yes"
-            android:textColor="@color/white"
+            android:layout_margin="5dp"
             android:background="@drawable/border_template"
             android:backgroundTint="@color/hint_dark"
-            android:layout_margin="5dp"/>
+            android:text="@string/yes_text"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/dont_leave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No"
-            android:textColor="@color/white"
+            android:layout_margin="5dp"
             android:background="@drawable/border_template"
             android:backgroundTint="@color/hint_dark"
-            android:layout_margin="5dp"/>
+            android:text="@string/no_text"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

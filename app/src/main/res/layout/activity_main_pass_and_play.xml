@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivityPlayOnline"
+    tools:context=".activities.MainActivityPlayOnline"
     android:gravity="center_horizontal">
 
     <ImageView
@@ -212,41 +212,41 @@
                         android:layout_marginHorizontal="10dp">
 
                         <Button
+                            android:id="@+id/b11"
                             android:layout_width="96dp"
                             android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
                             android:background="@android:color/transparent"
-                            android:id="@+id/b11" />
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
 
                         <Button
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
                             android:id="@+id/b12"
-                            android:background="@android:color/transparent"
-                            android:layout_weight="1"
-                            android:layout_marginStart="10dp"/>
-
-                        <Button
                             android:layout_width="96dp"
                             android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
-                            android:id="@+id/b13"
-                            android:background="@android:color/transparent"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:layout_marginStart="10dp"/>
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
+
+                        <Button
+                            android:id="@+id/b13"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="96dp"
-                        android:orientation="horizontal"
+                        android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginHorizontal="10dp">
+                        android:orientation="horizontal">
 
                         <Button
                             android:layout_width="96dp"
@@ -257,89 +257,89 @@
                             android:id="@+id/b21" />
 
                         <Button
+                            android:id="@+id/b22"
                             android:layout_width="96dp"
                             android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
-                            android:id="@+id/b22"
-                            android:background="@android:color/transparent"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:layout_marginStart="10dp"/>
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
 
                         <Button
+                            android:id="@+id/b23"
                             android:layout_width="96dp"
                             android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
-                            android:id="@+id/b23"
-                            android:background="@android:color/transparent"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:layout_marginStart="10dp"/>
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="96dp"
-                        android:orientation="horizontal"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/b31"
                             android:layout_width="96dp"
                             android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
                             android:background="@android:color/transparent"
-                            android:id="@+id/b31" />
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
 
                         <Button
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
                             android:id="@+id/b32"
-                            android:background="@android:color/transparent"
-                            android:layout_weight="1"
-                            android:layout_marginStart="10dp"/>
-
-                        <Button
                             android:layout_width="96dp"
                             android:layout_height="96dp"
-                            android:textSize="56sp"
-                            android:textColor="@color/black"
-                            android:id="@+id/b33"
-                            android:background="@android:color/transparent"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
-                            android:layout_marginStart="10dp"/>
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
+
+                        <Button
+                            android:id="@+id/b33"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:textSize="56sp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/game_starts_with_x"
-                    android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:padding="10dp"
-                    android:id="@+id/msg"
-                    android:background="@drawable/border_template"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_template"
+                    android:padding="10dp"
+                    android:text="@string/game_starts_with_x"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/next_round_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/cambay"
-                    android:text="Next Round"
-                    android:textColor="@color/white"
+                    android:layout_margin="5dp"
                     android:background="@drawable/border_template"
-                    android:visibility="gone"
-                    android:layout_margin="5dp"/>
+                    android:fontFamily="@font/cambay"
+                    android:text="@string/next_round_text"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

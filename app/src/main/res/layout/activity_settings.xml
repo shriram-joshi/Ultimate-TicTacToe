@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SettingsActivity"
+    tools:context=".activities.SettingsActivity"
     android:orientation="vertical">
 
     <ImageView
@@ -89,18 +89,6 @@
                             android:enabled="false" />
                     </LinearLayout>
 
-                    <!--            <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                android:id="@+id/display_name_Til"-->
-                    <!--                android:layout_width="wrap_content"-->
-                    <!--                android:layout_height="wrap_content"-->
-                    <!--                android:hint="Display Name"-->
-                    <!--                android:orientation="horizontal"-->
-                    <!--                android:gravity="center_horizontal">-->
-
-                    <!--                -->
-
-                    <!--            </com.google.android.material.textfield.TextInputLayout>-->
-
                     <ImageButton
                         android:id="@+id/edit_player_name_btn"
                         android:layout_width="wrap_content"
@@ -163,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_check_50dp"
                     android:background="@drawable/border_template"/>
 
