@@ -15,7 +15,13 @@
     <string name="you_text">You</string>
     <string name="you_play_as_x_text">You play as X</string>
     <string name="you_play_as_o_text">You play as O</string>
-    <string name="wins_the_round_text">\" wins the round!\"</string>
+    <string name="wins_the_round_text">" wins the round!"</string>
     <string name="sorry_try_again_text">Sorry!\nPlease try a different code!</string>
+    <string name="wait_for_play_text">Wait for your opponent to play…</string>
+    <string name="plays_first_as_x_text">" plays first as X"</string>
+    <string name="next_round_text">Next Round</string>
+    <string name="leave_game_dialog_text">Are you sure you want to leave the game?</string>
+    <string name="yes_text">Yes</string>
+    <string name="no_text">No</string>
 
 </resources>

@@ -11,17 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar.FullScreen">
-        <activity android:name=".StartGameActivity"
+        <activity android:name=".activities.StartGameActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivityPassAndPlay" />
+        <activity android:name=".activities.MainActivityPassAndPlay" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivityPlayOnline"
+            android:name=".activities.MainActivityPlayOnline"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".activities.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/splash_screen">
             <intent-filter>
