@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tictactoe">
+    package="com.devsoc.tictactoe">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -11,17 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar.FullScreen">
-        <activity android:name=".activities.StartGameActivity"
+        <activity android:name="com.devsoc.tictactoe.activities.StartGameActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MainActivityPassAndPlay" />
+        <activity android:name="com.devsoc.tictactoe.activities.MainActivityPassAndPlay" />
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name="com.devsoc.tictactoe.activities.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.MainActivityPlayOnline"
+            android:name="com.devsoc.tictactoe.activities.MainActivityPlayOnline"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name="com.devsoc.tictactoe.activities.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/splash_screen">
             <intent-filter>
