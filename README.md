@@ -32,4 +32,4 @@ Ultimate TicTacToe is an online two player TicTacToe game for Android.
 ##### Credits
 Special thanks to [**Hersh Kumar**](https://github.com/unc0ded) and [**Arjun Bajpai**](https://github.com/antailbaxt3r) for their help and contribution to the project.
 
-#### _Made with love by [Shriram Joshi](https://github.com/shriram-joshi)._
+#### _Made with ♥️ by [Shriram Joshi](https://github.com/shriram-joshi)._
